@@ -26,6 +26,13 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.2.Final</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.3-1101-jdbc41</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
