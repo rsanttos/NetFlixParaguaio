@@ -17,10 +17,19 @@ public class Episodio {
 	private int id;
 	public String nome;
 	public String duracao;
+	public String caminhoArquivo;
 	public int numeroEpisodio;
 	
 	public Episodio(){
 		
+	}
+
+	public String getCaminhoArquivo() {
+		return caminhoArquivo;
+	}
+
+	public void setCaminhoArquivo(String caminhoArquivo) {
+		this.caminhoArquivo = caminhoArquivo;
 	}
 
 	public int getId() {

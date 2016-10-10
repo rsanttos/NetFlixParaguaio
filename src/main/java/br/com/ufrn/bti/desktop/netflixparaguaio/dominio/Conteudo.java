@@ -23,7 +23,7 @@ public class Conteudo {
 	public String descricao;
 	public int anoLancamento;
 	public String atorPrincipal;
-	public File imgPrincipal;
+	public String caminhoImgPrincipal;
 	public String tipo;
 	
 	public Conteudo(){
@@ -78,12 +78,12 @@ public class Conteudo {
 		this.atorPrincipal = atorPrincipal;
 	}
 
-	public File getImgPrincipal() {
-		return imgPrincipal;
+	public String getCaminhoImgPrincipal() {
+		return caminhoImgPrincipal;
 	}
 
-	public void setImgPrincipal(File imgPrincipal) {
-		this.imgPrincipal = imgPrincipal;
+	public void setCaminhoImgPrincipal(String caminhoImgPrincipal) {
+		this.caminhoImgPrincipal = caminhoImgPrincipal;
 	}
 
 	public String getTipo() {

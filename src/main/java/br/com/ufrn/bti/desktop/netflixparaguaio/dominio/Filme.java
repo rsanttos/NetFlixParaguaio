@@ -17,6 +17,7 @@ public class Filme {
 	private int id;
 	
 	private String duracao;
+	private String caminhoArquivo;
 
 	public Filme(int id, String duracao) {
 		super();
@@ -25,6 +26,14 @@ public class Filme {
 	}
 	
 	public Filme(){
+	}
+
+	public String getCaminhoArquivo() {
+		return caminhoArquivo;
+	}
+
+	public void setCaminhoArquivo(String caminhoArquivo) {
+		this.caminhoArquivo = caminhoArquivo;
 	}
 
 	public int getId() {

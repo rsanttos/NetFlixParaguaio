@@ -9,10 +9,10 @@ public class MainTeste {
 		Filme f = new Filme();
 		FilmeDAO fDao = new FilmeDAO();
 		
-		f = fDao.buscarPeloId(1);
+		f.setCaminhoArquivo("teste");
+		f.setDuracao("2999");
 		
-		System.out.println(f.getId());
-		System.out.println(f.getDuracao());
+		fDao.salvarOuAtualizar(f);
 	}
 
 }
