@@ -18,11 +18,16 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private String permissao;
+	private boolean ativo;
 	
 	public Usuario(String login, String senha) {
 		super();
 		this.login = login;
 		this.senha = senha;
+	}
+	
+	public Usuario(){
+		
 	}
 	
 	public int getId() {
@@ -50,6 +55,14 @@ public class Usuario {
 
 	public void setPermissao(String permissao) {
 		this.permissao = permissao;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

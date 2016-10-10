@@ -1,5 +1,31 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.dao;
 
-public class SeriadoDAO extends GenericDAO {
+import java.util.ArrayList;
+import java.util.List;
 
+import org.hibernate.Query;
+
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
+import br.com.ufrn.bti.desktop.netflixparaguaio.util.HibernateUtil;
+
+public class SeriadoDAO extends GenericDAO {
+	@SuppressWarnings("unchecked")
+	public List<Seriado> listar(){
+		List<Seriado> listaSeriados = new ArrayList<Seriado>();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+		listaSeriados = session.createQuery("SELECT f FROM Seriado f").getResultList();
+		return listaSeriados;
+	}
+
+	@SuppressWarnings({ "deprecation, rawtypes" })
+	public Seriado buscarPeloId(int id) {
+		Seriado seriado = new Seriado();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+		Query q = session.createQuery("SELECT f FROM Seriado f WHERE f.id = :id");
+        q.setInteger("id", id);
+		seriado = (Seriado) q.getSingleResult(); 
+		return seriado;
+	}
 }
