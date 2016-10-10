@@ -3,14 +3,17 @@ package br.com.ufrn.bti.desktop.netflixparaguaio.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dao.ConteudoDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dao.FilmeDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
 
 public class FilmeService extends GenericService {
 	
+	private ConteudoDAO conteudoDao;
 	private FilmeDAO filmeDao;
 	
 	public FilmeService(){
+		conteudoDao = new ConteudoDAO();
 		filmeDao = new FilmeDAO();
 	}
 	
@@ -31,5 +34,12 @@ public class FilmeService extends GenericService {
 			return filmeAux;
 		}
 		return filmeAux;
+	}
+
+	public void salvarOuAtualizar(Filme filme){
+		if(filme != null){
+			conteudoDao.salvarOuAtualizar(filme.getConteudo());
+			filmeDao.salvarOuAtualizar(filme);
+		}
 	}
 }

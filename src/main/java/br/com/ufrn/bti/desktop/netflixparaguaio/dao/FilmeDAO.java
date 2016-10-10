@@ -10,7 +10,11 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.util.HibernateUtil;
 
 @SuppressWarnings("deprecation")
 public class FilmeDAO extends GenericDAO {
-
+	
+	public FilmeDAO(){
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Filme> listar(){
 		List<Filme> listaFilmes = new ArrayList<Filme>();
@@ -30,6 +34,4 @@ public class FilmeDAO extends GenericDAO {
 		filme = (Filme) q.getSingleResult(); 
 		return filme;
 	}
-
-
 }

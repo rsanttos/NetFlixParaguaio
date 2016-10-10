@@ -3,14 +3,17 @@ package br.com.ufrn.bti.desktop.netflixparaguaio.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dao.ConteudoDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dao.SeriadoDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
 
 public class SeriadoService extends GenericService {
 	private SeriadoDAO seriadoDao;
+	private ConteudoService conteudoService;
 	
 	public SeriadoService(){
 		seriadoDao = new SeriadoDAO();
+		conteudoService = new ConteudoService();
 	}
 	
 	public List<Seriado> listar(){
@@ -30,5 +33,12 @@ public class SeriadoService extends GenericService {
 			return seriadoAux;
 		}
 		return seriadoAux;
+	}
+
+	public void salvarOuAtualizar(Seriado seriado){
+		if(seriado != null){
+			conteudoService.salvarOuAtualizar(seriado.getConteudo());
+			seriadoDao.salvarOuAtualizar(seriado);
+		}
 	}
 }
