@@ -1,9 +1,12 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.dominio;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,7 +21,11 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private String permissao;
-	private boolean ativo;
+	private boolean ativo;	
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "id_pessoa")
+	private Pessoa pessoa;
 	
 	public Usuario(String login, String senha) {
 		super();
@@ -63,6 +70,14 @@ public class Usuario {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 	
 }

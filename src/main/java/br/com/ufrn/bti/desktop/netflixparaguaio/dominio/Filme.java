@@ -1,9 +1,12 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.dominio;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -19,6 +22,11 @@ public class Filme {
 	private String duracao;
 	private String caminhoArquivo;
 
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "id_conteudo")
+	private Conteudo conteudo;
+	
 	public Filme(int id, String duracao) {
 		super();
 		this.id = id;
@@ -51,4 +59,13 @@ public class Filme {
 	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
+
+	public Conteudo getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(Conteudo conteudo) {
+		this.conteudo = conteudo;
+	}
+	
 }

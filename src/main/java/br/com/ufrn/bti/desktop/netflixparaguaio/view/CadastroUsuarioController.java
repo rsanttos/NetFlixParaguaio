@@ -1,7 +1,10 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Pessoa;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.UsuarioService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -22,6 +25,8 @@ public class CadastroUsuarioController {
 	private TextField senhaField;
 	@FXML
 	private TextField permissaoField;
+
+	private UsuarioService usuarioService;
 
 	private Stage dialogStage;
 	private boolean entrarClicked = false;
@@ -120,8 +125,40 @@ public class CadastroUsuarioController {
 		this.permissaoField = permissaoField;
 	}
 
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
 	@FXML
-	public void handleCadastrar(){
-		
+	public void handleCadastrar() {
+		if(validaCampos()){
+			Pessoa pessoa = new Pessoa();
+			Usuario usuario = new Usuario();
+			
+			pessoa.setCpf(cpfField.getText());
+			pessoa.setNome(nomeField.getText());
+			pessoa.setSexo(sexoField.getText().charAt(0));
+			usuario.setLogin(loginField.getText());
+			usuario.setSenha(senhaField.getText());
+			usuario.setPermissao(permissaoField.getText());
+			usuario.setPessoa(pessoa);
+			usuarioService.salvarOuAtualizar(usuario);
+			
+			Alerta.alertaSucesso("Tudo certo!", "Usuário cadastrado com sucesso.");
+		}
+	}
+
+	public boolean validaCampos() {
+		if (cpfField.getText() == null || nomeField.getText() == null || nascimentoField.getText() == null
+				|| sexoField.getText() == null || loginField.getText() == null || senhaField.getText() == null 
+				|| permissaoField.getText() == null){
+			Alerta.alertaErro("Campos em branco.", "Preencha todos os campos obrigatórios");
+			return false;
+		}
+			return true;
 	}
 }

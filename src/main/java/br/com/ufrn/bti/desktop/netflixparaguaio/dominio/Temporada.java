@@ -1,9 +1,12 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.dominio;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,7 +20,10 @@ public class Temporada {
 	private int id;
 	public int numeroTemporada;
 	public int qtdEpisodios;
-	
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "id_seriado")
+	private Seriado seriado;
 	public Temporada(){
 		
 	}
@@ -45,4 +51,13 @@ public class Temporada {
 	public void setQtdEpisodios(int qtdEpisodios) {
 		this.qtdEpisodios = qtdEpisodios;
 	}
+
+	public Seriado getSeriado() {
+		return seriado;
+	}
+
+	public void setSeriado(Seriado seriado) {
+		this.seriado = seriado;
+	}
+	
 }
