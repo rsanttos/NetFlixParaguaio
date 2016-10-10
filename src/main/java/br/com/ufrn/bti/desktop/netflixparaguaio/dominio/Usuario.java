@@ -1,6 +1,19 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.dominio;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name="usuario", schema="public")
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_USUARIO")
+	@SequenceGenerator(name="SEQ_USUARIO", schema = "public", sequenceName="id_usuario", allocationSize=1)
 	private int id;
 	private String login;
 	private String senha;

@@ -7,9 +7,12 @@ public class MainTeste {
 
 	public static void main(String[] args) {
 		Filme f = new Filme();
-		f.setDuracao("3000");
 		FilmeDAO fDao = new FilmeDAO();
-		fDao.salvar(f);
+		
+		f = fDao.buscarPeloId(1);
+		
+		System.out.println(f.getId());
+		System.out.println(f.getDuracao());
 	}
 
 }
