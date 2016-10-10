@@ -9,12 +9,12 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">false</property>
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">create</property>
 		<property name="hibernate.connection.username">postgres</property>
 		<property name="hibernate.connection.password">postgres</property>
 		
 		<!-- Livro -->
-		<!-- <mapping class="br.com.meuprojeto.bean.Livro" /> -->
+		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme" />
 		
 	</session-factory>
 </hibernate-configuration>
