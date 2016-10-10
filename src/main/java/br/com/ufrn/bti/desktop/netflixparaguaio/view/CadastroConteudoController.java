@@ -1,7 +1,9 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
-import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -21,6 +23,12 @@ public class CadastroConteudoController {
 	@FXML
 	private TextField imgField;
 	@FXML
+	private TextField nomeEpField;
+	@FXML
+	private TextField numeroEpField;
+	@FXML
+	private TextField duracaoField;
+	@FXML
 	private ComboBox<Integer> classificacaoEtariaComboBox;
 	@FXML
 	private ComboBox<String> tipoComboBox;
@@ -30,6 +38,9 @@ public class CadastroConteudoController {
 	private Main main;
 	
 	private Conteudo conteudo;
+	private Filme filme;
+	private Seriado seriado;
+	private Episodio episodio;
 
 	@FXML
 	private void initialize() {
@@ -43,7 +54,6 @@ public class CadastroConteudoController {
 		this.nomeField = nomeField;
 	}
 
-	
 	public Stage getDialogStage() {
 		return dialogStage;
 	}
@@ -68,6 +78,54 @@ public class CadastroConteudoController {
 		this.main = main;
 	}
 	
+	public TextField getNomeEpField() {
+		return nomeEpField;
+	}
+
+	public void setNomeEpField(TextField nomeEpField) {
+		this.nomeEpField = nomeEpField;
+	}
+
+	public TextField getNumeroEpField() {
+		return numeroEpField;
+	}
+
+	public void setNumeroEpField(TextField numeroEpField) {
+		this.numeroEpField = numeroEpField;
+	}
+
+	public TextField getDuracaoField() {
+		return duracaoField;
+	}
+
+	public void setDuracaoField(TextField duracaoField) {
+		this.duracaoField = duracaoField;
+	}
+
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
+
+	public Seriado getSeriado() {
+		return seriado;
+	}
+
+	public void setSeriado(Seriado seriado) {
+		this.seriado = seriado;
+	}
+
+	public Episodio getEpisodio() {
+		return episodio;
+	}
+
+	public void setEpisodio(Episodio episodio) {
+		this.episodio = episodio;
+	}
+
 	@FXML
 	public void handleCadastrar(){
 		
