@@ -2,11 +2,16 @@ package br.com.ufrn.bti.desktop.netflixparaguaio.main;
 
 import java.io.IOException;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
+import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroConteudoController;
+import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroUsuarioController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.LoginController;
+import br.com.ufrn.bti.desktop.netflixparaguaio.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -14,6 +19,7 @@ public class Main extends Application {
 
 	private Stage primaryStage;
 
+	private BorderPane rootLayout;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -25,7 +31,6 @@ public class Main extends Application {
 
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("NetFlixParaguaio");
-		
 		showLogin();
 	}
 	
@@ -46,7 +51,8 @@ public class Main extends Application {
 
 			// Define a pessoa no controller.
 			LoginController controller = loader.getController();
-			controller.setDialogStage(dialogStage);
+			controller.setStage(dialogStage);
+			controller.setMain(this);
 
 			// Mostra a janela e espera até o usuário fechar.
 			dialogStage.showAndWait();
@@ -55,6 +61,131 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	public boolean showCadastroUsuario(Usuario usuario) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/cadastroUsuario.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Usuário");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			CadastroUsuarioController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean showListagemFilmesAdmin() {
+		initRootLayoutAdmin();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/listagemFilmesAdmin.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Listagem de Filmes");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			rootLayout.setCenter(page);
+			
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean showListagemFilmes() {
+		initRootLayoutUser();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/listagemFilmes.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Listagem de Filmes");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+			
+			rootLayout.setCenter(page);
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public void initRootLayoutAdmin() {
+		try {
+			// Carrega o root layout do arquivo fxml.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/RootLayoutAdmin.fxml"));
+			rootLayout = (BorderPane) loader.load();
+
+			// Mostra a scene (cena) contendo o root layout.
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+
+			// Dá ao controller o acesso ao main app.
+			RootLayoutController controller = loader.getController();
+			controller.setMain(this);
+
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void initRootLayoutUser() {
+		try {
+			// Carrega o root layout do arquivo fxml.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/RootLayoutUser.fxml"));
+			rootLayout = (BorderPane) loader.load();
+
+			// Mostra a scene (cena) contendo o root layout.
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+
+			// Dá ao controller o acesso ao main app.
+			RootLayoutController controller = loader.getController();
+			controller.setMain(this);
+
+			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

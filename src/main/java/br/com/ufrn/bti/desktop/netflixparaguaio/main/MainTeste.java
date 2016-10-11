@@ -1,29 +1,27 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.main;
 
-import br.com.ufrn.bti.desktop.netflixparaguaio.dao.ConteudoDAO;
-import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
-import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
-import br.com.ufrn.bti.desktop.netflixparaguaio.service.FilmeService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dao.PessoaDAO;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dao.UsuarioDAO;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Pessoa;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 
 public class MainTeste {
 
 	public static void main(String[] args) {
-		Conteudo c = new Conteudo();
-		c.setAnoLancamento(2006);
-		c.setAtorPrincipal("Ramon");
-		c.setClassificacaoEtaria(10);
-		c.setNome("Teste");
-		c.setTipo("Filme");
-		ConteudoDAO cDao = new ConteudoDAO();
-		//cDao.salvarOuAtualizar(c);
-		
-		Filme f = new Filme();
-		FilmeService fService = new FilmeService();
-		f.setConteudo(c);
-		f.setCaminhoArquivo("teste");
-		f.setDuracao("2999");
-		
-		fService.salvarOuAtualizar(f);
+		Pessoa p = new Pessoa();
+		p.setCpf("10904368408");
+		p.setNome("Ramon");
+		p.setSexo('M');
+		Usuario usuario = new Usuario();
+		usuario.setAtivo(true);
+		usuario.setLogin("ramonsantos");
+		usuario.setPermissao("USER");
+		usuario.setSenha("ramon");
+		usuario.setPessoa(p);
+		PessoaDAO pDao = new PessoaDAO();
+		pDao.salvarOuAtualizar(p);
+		UsuarioDAO usuarioDao = new UsuarioDAO();
+		usuarioDao.salvarOuAtualizar(usuario);
 	}
 
 }

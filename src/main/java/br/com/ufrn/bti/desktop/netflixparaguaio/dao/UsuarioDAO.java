@@ -20,12 +20,23 @@ public class UsuarioDAO extends GenericDAO {
 
 	@SuppressWarnings({ "deprecation, rawtypes" })
 	public Usuario buscarPeloId(int id) {
-		Usuario filme = new Usuario();
+		Usuario usuario = new Usuario();
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 		Query q = session.createQuery("SELECT f FROM Usuario f WHERE f.id = :id");
         q.setInteger("id", id);
-		filme = (Usuario) q.getSingleResult(); 
-		return filme;
+		usuario = (Usuario) q.getSingleResult(); 
+		return usuario;
+	}
+
+	@SuppressWarnings({ "deprecation, rawtypes" })
+	public Usuario buscarPeloLogin(String login) {
+		Usuario usuario = new Usuario();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+		Query q = session.createQuery("SELECT f FROM Usuario f WHERE f.login = :login");
+        q.setString("login", login);
+		usuario = (Usuario) q.getSingleResult(); 
+		return usuario;
 	}
 }

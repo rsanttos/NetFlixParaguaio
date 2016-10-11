@@ -10,7 +10,7 @@ public class UsuarioService extends GenericService {
 	private UsuarioDAO usuarioDao;
 	
 	public UsuarioService(){
-		
+		usuarioDao = new UsuarioDAO();
 	}
 	
 	public List<Usuario> listar(){
@@ -32,6 +32,17 @@ public class UsuarioService extends GenericService {
 		Usuario usuarioAux = new Usuario();
 		if(id > 0){
 			usuarioAux = usuarioDao.buscarPeloId(id);
+		}
+		if(usuarioAux != null){
+			return usuarioAux;
+		}
+		return usuarioAux;
+	}
+	
+	public Usuario buscarPeloLogin(String login){
+		Usuario usuarioAux = new Usuario();
+		if(login != null){
+			usuarioAux = usuarioDao.buscarPeloLogin(login);
 		}
 		if(usuarioAux != null){
 			return usuarioAux;

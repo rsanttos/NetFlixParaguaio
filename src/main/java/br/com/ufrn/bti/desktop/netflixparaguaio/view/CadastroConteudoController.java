@@ -21,19 +21,11 @@ public class CadastroConteudoController {
 	@FXML
 	private TextField atorPrincipalField;
 	@FXML
-	private TextField imgField;
-	@FXML
-	private TextField nomeEpField;
-	@FXML
-	private TextField numeroEpField;
-	@FXML
-	private TextField duracaoField;
-	@FXML
 	private ComboBox<Integer> classificacaoEtariaComboBox;
 	@FXML
 	private ComboBox<String> tipoComboBox;
 
-	private Stage dialogStage;
+	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
 	
@@ -53,13 +45,14 @@ public class CadastroConteudoController {
 	public void setNomeField(TextField nomeField) {
 		this.nomeField = nomeField;
 	}
+	
 
-	public Stage getDialogStage() {
-		return dialogStage;
+	public Stage getStage() {
+		return stage;
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	public boolean isEntrarClicked() {
@@ -76,30 +69,6 @@ public class CadastroConteudoController {
 
 	public void setMain(Main main) {
 		this.main = main;
-	}
-	
-	public TextField getNomeEpField() {
-		return nomeEpField;
-	}
-
-	public void setNomeEpField(TextField nomeEpField) {
-		this.nomeEpField = nomeEpField;
-	}
-
-	public TextField getNumeroEpField() {
-		return numeroEpField;
-	}
-
-	public void setNumeroEpField(TextField numeroEpField) {
-		this.numeroEpField = numeroEpField;
-	}
-
-	public TextField getDuracaoField() {
-		return duracaoField;
-	}
-
-	public void setDuracaoField(TextField duracaoField) {
-		this.duracaoField = duracaoField;
 	}
 
 	public Filme getFilme() {
@@ -133,7 +102,7 @@ public class CadastroConteudoController {
 	
     @FXML
     private void handleCancel() {
-        dialogStage.close();
+        this.stage.close();
     }
 	public TextField getDescricaoField() {
 		return descricaoField;
@@ -157,14 +126,6 @@ public class CadastroConteudoController {
 
 	public void setAtorPrincipalField(TextField atorPrincipalField) {
 		this.atorPrincipalField = atorPrincipalField;
-	}
-
-	public TextField getImgField() {
-		return imgField;
-	}
-
-	public void setImgField(TextField imgField) {
-		this.imgField = imgField;
 	}
 
 	public ComboBox<Integer> getClassificacaoEtariaComboBox() {

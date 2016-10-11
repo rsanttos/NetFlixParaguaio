@@ -1,32 +1,57 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import java.io.IOException;
+
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.UsuarioService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class LoginController {
+public class LoginController extends GenericController {
 
 	@FXML
 	private TextField loginField;
 	@FXML
 	private TextField senhaField;
+	private BorderPane rootLayout;
 
-	private Stage dialogStage;
+	private Stage stage;
 	private boolean entrarClicked = false;
+	
 	private Main main;
 
 	private Usuario usuario;
+	private UsuarioService usuarioService;
+
+	public LoginController() {
+		usuario = new Usuario();
+		usuarioService = new UsuarioService();
+	}
 
 	@FXML
 	private void initialize() {
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 
 	public TextField getLoginField() {
@@ -61,37 +86,42 @@ public class LoginController {
 		this.usuario = usuario;
 	}
 
-	public Stage getDialogStage() {
-		return dialogStage;
-	}
-
 	@FXML
 	private void handleEntrar() {
-		if(validaEntradas()){
-			usuario.setLogin(loginField.getText());
-			usuario.setSenha(senhaField.getText());
-			System.out.println("aeho");
+		if (validaEntradas()) {
+			Usuario usuario = new Usuario();
+			String login = loginField.getText();
+			usuario = usuarioService.buscarPeloLogin(login);
+			if (usuario != null) {
+				if (senhaField.getText().equals(usuario.getSenha())) {
+					if (usuario.getPermissao().equals("ADMIN")) {
+						this.stage.close();
+						boolean entrarClicked = main.showListagemFilmesAdmin();
+					} else if (usuario.getPermissao().equals("USER")) {
+						this.stage.close();
+						boolean entrarClicked = main.showListagemFilmes();
+					}
+				} else {
+					Alerta.alertaErro("Vixe.", "Verifique se digitou a senha corretamente.");
+				}
+			} else {
+				Alerta.alertaErro("Eita.", "Verifique se digitou um login cadastrado.");
+			}
 		}
 	}
 
 	private boolean validaEntradas() {
-		if (loginField.getText() != null) {
-			if (senhaField.getText() != null) {
+		if (!(loginField.getText().isEmpty())) {
+			if (!(senhaField.getText().isEmpty())) {
+				System.out.println(loginField.getText());
+				System.out.println(senhaField.getText());
 				return true;
 			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Campos Inválidos");
-				alert.setHeaderText("Ops..");
-				alert.setContentText("Por favor, digite a senha.");
-				alert.showAndWait();
+				Alerta.alertaErro("Ops..", "Por favor, digite a senha.");
 				return false;
 			}
 		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Campos Inválidos");
-			alert.setHeaderText("Ops..");
-			alert.setContentText("Login e senha precisam ser informados.");
-			alert.showAndWait();
+			Alerta.alertaErro("Ops..", "Login e senha precisam ser informados.");
 			return false;
 		}
 	}
@@ -102,5 +132,21 @@ public class LoginController {
 
 	public void setMain(Main main) {
 		this.main = main;
+	}
+
+	public void showCadastroUsuario() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/cadastroUsuario.fxml"));
+			AnchorPane listageFilmesOverview = (AnchorPane) loader.load();
+
+			//rootLayout.setCenter(listageFilmesOverview);
+
+			// Dá ao controlador acesso à the main app.
+			CadastroUsuarioController controller = loader.getController();
+			controller.setMain(main);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

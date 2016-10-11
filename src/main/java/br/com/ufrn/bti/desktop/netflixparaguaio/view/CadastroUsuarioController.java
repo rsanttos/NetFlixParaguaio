@@ -28,7 +28,7 @@ public class CadastroUsuarioController {
 
 	private UsuarioService usuarioService;
 
-	private Stage dialogStage;
+	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
 	private Usuario usuario;
@@ -84,13 +84,13 @@ public class CadastroUsuarioController {
 	public void setSenhaField(TextField senhaField) {
 		this.senhaField = senhaField;
 	}
-
-	public Stage getDialogStage() {
-		return dialogStage;
+	
+	public Stage getStage() {
+		return stage;
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	public boolean isEntrarClicked() {
@@ -151,7 +151,10 @@ public class CadastroUsuarioController {
 			Alerta.alertaSucesso("Tudo certo!", "Usuário cadastrado com sucesso.");
 		}
 	}
-
+	@FXML
+    private void handleCancelar() {
+        stage.close();
+    }
 	public boolean validaCampos() {
 		if (cpfField.getText() == null || nomeField.getText() == null || nascimentoField.getText() == null
 				|| sexoField.getText() == null || loginField.getText() == null || senhaField.getText() == null 
