@@ -1,15 +1,18 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 
 public class RootLayoutController {
 
 	// Referência à aplicação principal
 	private Main main;
+	private Stage stage;
 
 	/**
 	 * É chamado pela aplicação principal para referenciar a si mesma.
@@ -20,25 +23,44 @@ public class RootLayoutController {
 		this.main = main;
 	}
 
-	/**
-	 * Cria uma agenda vazia.
-	 */
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
+	public Main getMain() {
+		return main;
+	}
+
 	@FXML
 	private void handleNewUsuario() {
+		Usuario usuarioAux = new Usuario();
+		main.showCadastroUsuario(usuarioAux);
 	}
 
 	@FXML
 	private void handleListarUsuarios() {
+		main.showListagemFilmes();
 	}
 
 	@FXML
 	private void handleListarFilmesUser() {
+		main.showListagemFilmes();
 	}
 	@FXML
 	private void handleListarSeriadosUser() {
+		main.showListagemSeriadosUser();
+	}
+	@FXML
+	private void handleListarSeriadosAdmin() {
+		main.showListagemSeriadosAdmin();
 	}
 	@FXML
 	private void handlePesquisar() {
+		main.showListagemFilmes();
 	}
 	/**
 	 * Abre uma janela Sobre.

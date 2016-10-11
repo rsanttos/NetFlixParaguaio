@@ -148,6 +148,90 @@ public class Main extends Application {
 			return false;
 		}
 	}
+	public boolean showListagemSeriadosAdmin() {
+		initRootLayoutAdmin();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/listagemSeriados.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Listagem de Seriados");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+			
+			rootLayout.setCenter(page);
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean showListagemSeriadosUser() {
+		initRootLayoutUser();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/listagemSeriados.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Listagem de Seriados");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+			
+			rootLayout.setCenter(page);
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean showListagemUsuarios() {
+		initRootLayoutAdmin();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/listagemUsuarios.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Listagem de Seriados");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+			
+			rootLayout.setCenter(page);
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public void initRootLayoutAdmin() {
 		try {
 			// Carrega o root layout do arquivo fxml.
