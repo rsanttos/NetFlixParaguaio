@@ -20,11 +20,23 @@
                   <MenuItem mnemonicParsing="false" onAction="#handleListarUsuarios" text="Ver usuários" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="Conteúdo">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleNewConteudo" text="Novo conteúdo" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleListarFilmesAdmin" text="Ver filmes" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleListarSeriadosAdmin" text="Ver seriados" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Pesquisar">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#handlePesquisar" text="Pesquisar conteúdo" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

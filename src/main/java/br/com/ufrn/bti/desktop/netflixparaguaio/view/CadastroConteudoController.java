@@ -101,7 +101,7 @@ public class CadastroConteudoController {
 	}
 	
     @FXML
-    private void handleCancel() {
+    private void handleCancelar() {
         this.stage.close();
     }
 	public TextField getDescricaoField() {

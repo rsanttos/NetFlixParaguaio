@@ -1,5 +1,6 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import javafx.fxml.FXML;
@@ -42,17 +43,26 @@ public class RootLayoutController {
 	}
 
 	@FXML
+	private void handleNewConteudo() {
+		Conteudo conteudoAux = new Conteudo();
+		main.showCadastroConteudo(conteudoAux);
+	}
+	@FXML
 	private void handleListarUsuarios() {
-		main.showListagemFilmes();
+		main.showListagemUsuarios();
 	}
 
 	@FXML
-	private void handleListarFilmesUser() {
+	private void handleListarFilmes() {
 		main.showListagemFilmes();
 	}
 	@FXML
-	private void handleListarSeriadosUser() {
-		main.showListagemSeriadosUser();
+	private void handleListarSeriados() {
+		main.showListagemSeriados();
+	}
+	@FXML
+	private void handleListarFilmesAdmin() {
+		main.showListagemFilmesAdmin();
 	}
 	@FXML
 	private void handleListarSeriadosAdmin() {
@@ -60,7 +70,7 @@ public class RootLayoutController {
 	}
 	@FXML
 	private void handlePesquisar() {
-		main.showListagemFilmes();
+		main.showPesquisa();
 	}
 	/**
 	 * Abre uma janela Sobre.

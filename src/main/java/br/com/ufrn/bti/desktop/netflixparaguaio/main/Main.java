@@ -2,6 +2,7 @@ package br.com.ufrn.bti.desktop.netflixparaguaio.main;
 
 import java.io.IOException;
 
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroConteudoController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroUsuarioController;
@@ -67,19 +68,48 @@ public class Main extends Application {
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/cadastroUsuario.fxml"));
+			loader.setLocation(Main.class.getResource("../view/cadastroConteudo.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Cria o palco dialogStage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Usuário");
+			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Conteúdo");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
 			// Define a pessoa no controller.
-			CadastroUsuarioController controller = loader.getController();
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean showCadastroConteudo(Conteudo conteudo) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/cadastroConteudo.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Conteúdo");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			CadastroConteudoController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 
@@ -148,12 +178,40 @@ public class Main extends Application {
 			return false;
 		}
 	}
+	public boolean showPesquisa() {
+		initRootLayoutUser();
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/listagemFilmes.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Pesquisar conteúdo");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+			
+			rootLayout.setCenter(page);
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	public boolean showListagemSeriadosAdmin() {
 		initRootLayoutAdmin();
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/listagemSeriados.fxml"));
+			loader.setLocation(Main.class.getResource("../view/listagemSeriadosAdmin.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Cria o palco dialogStage.
@@ -176,7 +234,7 @@ public class Main extends Application {
 			return false;
 		}
 	}
-	public boolean showListagemSeriadosUser() {
+	public boolean showListagemSeriados() {
 		initRootLayoutUser();
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
@@ -214,13 +272,13 @@ public class Main extends Application {
 
 			// Cria o palco dialogStage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("NetFlixParaguaio - Listagem de Seriados");
+			dialogStage.setTitle("NetFlixParaguaio - Listagem de Usuários");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
-			CadastroConteudoController controller = loader.getController();
+			CadastroUsuarioController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 			
