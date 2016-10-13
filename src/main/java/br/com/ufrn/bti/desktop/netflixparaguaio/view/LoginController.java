@@ -99,7 +99,7 @@ public class LoginController extends GenericController {
 						boolean entrarClicked = main.showListagemFilmesAdmin();
 					} else if (usuario.getPermissao().equals("USER")) {
 						this.stage.close();
-						boolean entrarClicked = main.showListagemFilmes();
+						boolean entrarClicked = main.showListagemFilmesUser();
 					}
 				} else {
 					Alerta.alertaErro("Vixe.", "Verifique se digitou a senha corretamente.");

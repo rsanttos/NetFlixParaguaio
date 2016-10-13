@@ -150,12 +150,12 @@ public class Main extends Application {
 			return false;
 		}
 	}
-	public boolean showListagemFilmes() {
+	public boolean showListagemFilmesUser() {
 		initRootLayoutUser();
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/listagemFilmes.fxml"));
+			loader.setLocation(Main.class.getResource("../view/listagemFilmesUser.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Cria o palco dialogStage.
@@ -234,12 +234,12 @@ public class Main extends Application {
 			return false;
 		}
 	}
-	public boolean showListagemSeriados() {
+	public boolean showListagemSeriadosUser() {
 		initRootLayoutUser();
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/listagemSeriados.fxml"));
+			loader.setLocation(Main.class.getResource("../view/listagemSeriadosUser.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Cria o palco dialogStage.

@@ -53,12 +53,12 @@ public class RootLayoutController {
 	}
 
 	@FXML
-	private void handleListarFilmes() {
-		main.showListagemFilmes();
+	private void handleListarFilmesUser() {
+		main.showListagemFilmesUser();
 	}
 	@FXML
-	private void handleListarSeriados() {
-		main.showListagemSeriados();
+	private void handleListarSeriadosUser() {
+		main.showListagemSeriadosUser();
 	}
 	@FXML
 	private void handleListarFilmesAdmin() {
