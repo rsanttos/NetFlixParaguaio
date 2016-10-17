@@ -35,7 +35,7 @@ public class EpisodioService extends GenericService {
 
 	public void salvarOuAtualizar(Episodio episodio){
 		if(episodio != null){
-			temporadaService.salvarOuAtualizar(episodio.getTemporada());
+			//temporadaService.salvarOuAtualizar(episodio.getTemporada());
 			episodioDao.salvarOuAtualizar(episodio);
 		}
 	}

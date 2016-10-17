@@ -2,6 +2,8 @@ package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.EpisodioService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,26 +16,38 @@ public class CadastroEpisodioController {
 	@FXML
 	private TextField numeroEpField;
 	@FXML
-	private TextField duracaoField;
+	private TextField duracaoEpField;
 
-	private Stage dialogStage;
+	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
 	
 	private Episodio episodio;
+	private EpisodioService episodioService = new EpisodioService();
 
 	@FXML
 	private void initialize() {
 	}
 
 	@FXML
-	public void handleCadastrar(){
-		
+	public void handleCadastrarEpisodio(){
+		if(validaCamposEpisodio()){
+			episodio.setDuracao(duracaoEpField.getText());
+			episodio.setNome(nomeEpField.getText());
+			episodio.setNumeroEpisodio(Integer.parseInt(numeroEpField.getText()));
+			//episodio.setCaminhoArquivo(imgField.getText());
+			episodioService.salvarOuAtualizar(episodio);
+			Alerta.alertaSucesso("Aê!!!", "Episódio salvo com sucesso.");
+		}
+	}
+	
+	public boolean validaCamposEpisodio(){
+		return true;
 	}
 	
     @FXML
-    private void handleCancel() {
-        dialogStage.close();
+    private void handleCancelar() {
+        stage.close();
     }
 
 	public TextField getImgField() {
@@ -60,20 +74,20 @@ public class CadastroEpisodioController {
 		this.numeroEpField = numeroEpField;
 	}
 
-	public TextField getDuracaoField() {
-		return duracaoField;
+	public TextField getDuracaoEpField() {
+		return duracaoEpField;
 	}
 
-	public void setDuracaoField(TextField duracaoField) {
-		this.duracaoField = duracaoField;
+	public void setDuracaoEpField(TextField duracaoEpField) {
+		this.duracaoEpField = duracaoEpField;
 	}
 
-	public Stage getDialogStage() {
-		return dialogStage;
+	public Stage getStage() {
+		return stage;
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	public boolean isEntrarClicked() {

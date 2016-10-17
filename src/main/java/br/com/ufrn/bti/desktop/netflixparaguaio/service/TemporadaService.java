@@ -37,7 +37,7 @@ public class TemporadaService extends GenericService {
 
 	public void salvarOuAtualizar(Temporada temporada){
 		if(temporada != null){
-			seriadoService.salvarOuAtualizar(temporada.getSeriado());
+			//seriadoService.salvarOuAtualizar(temporada.getSeriado());
 			temporadaDao.salvarOuAtualizar(temporada);
 		}
 	}

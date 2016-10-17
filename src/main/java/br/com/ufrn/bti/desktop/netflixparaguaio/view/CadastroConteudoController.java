@@ -8,6 +8,7 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Temporada;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.ConteudoService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.FilmeService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.SeriadoService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +36,8 @@ public class CadastroConteudoController {
 	private ComboBox<String> tipoComboBox = new ComboBox<String>();
 	@FXML
 	private TextField duracaoFilmeField;
+	@FXML
+	private TextField qtdTemporadasField;
 
 
 	private Stage stage;
@@ -49,6 +52,7 @@ public class CadastroConteudoController {
 
 	private ConteudoService conteudoService = new ConteudoService();
 	private FilmeService filmeService = new FilmeService();
+	private SeriadoService seriadoService = new SeriadoService();
 	
 	public CadastroConteudoController() {
 		initialize();
@@ -183,8 +187,31 @@ public class CadastroConteudoController {
 
 	@FXML
 	private void handleCadastrarSeriado() {
-		
+		if(validaCamposConteudo() && validaCamposSeriado()){
+			conteudo = new Conteudo();
+			conteudo.setNome(nomeField.getText());
+			conteudo.setClassificacaoEtaria(classificacaoEtariaComboBox.getValue());
+			conteudo.setDescricao(descricaoField.getText());
+			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
+			conteudo.setAtorPrincipal(atorPrincipalField.getText());
+			seriado = new Seriado();
+			seriado.setConteudo(conteudo);
+			seriado.setQtdTemporadas(Integer.parseInt(qtdTemporadasField.getText()));
+			seriadoService.salvarOuAtualizar(seriado);
+			temporada = new Temporada();
+			temporada.setSeriado(seriado);
+			main.showCadastroTemporada(temporada);
+		}
 	}	
+	
+	public boolean validaCamposSeriado(){
+		if(qtdTemporadasField.getText() == null){
+			Alerta.alertaErro("Rapaz...", "Você deve informar a quantidade de temporadas.");
+			return false;
+		}
+		
+		return true;
+	}
 	
 	public TextField getDescricaoField() {
 		return descricaoField;
@@ -289,4 +316,22 @@ public class CadastroConteudoController {
 	public void setFilmeService(FilmeService filmeService) {
 		this.filmeService = filmeService;
 	}
+
+	public TextField getQtdTemporadasField() {
+		return qtdTemporadasField;
+	}
+
+	public void setQtdTemporadasField(TextField qtdTemporadasField) {
+		this.qtdTemporadasField = qtdTemporadasField;
+	}
+
+	public SeriadoService getSeriadoService() {
+		return seriadoService;
+	}
+
+	public void setSeriadoService(SeriadoService seriadoService) {
+		this.seriadoService = seriadoService;
+	}
+
+	
 }
