@@ -4,8 +4,10 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Temporada;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.ConteudoService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.FilmeService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,14 +33,22 @@ public class CadastroConteudoController {
 	private ObservableList<String> opcoesTipoComboBox = FXCollections.observableArrayList("Filme", "Seriado");
 	@FXML
 	private ComboBox<String> tipoComboBox = new ComboBox<String>();
+	@FXML
+	private TextField duracaoFilmeField;
+
 
 	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
 
 	private Conteudo conteudo;
+	private Filme filme;
+	private Seriado seriado;
+	private Temporada temporada;
+	private Episodio episodio;
 
 	private ConteudoService conteudoService = new ConteudoService();
+	private FilmeService filmeService = new FilmeService();
 	
 	public CadastroConteudoController() {
 		initialize();
@@ -82,9 +92,25 @@ public class CadastroConteudoController {
 		this.main = main;
 	}
 
+	public TextField getDuracaoFilmeField() {
+		return duracaoFilmeField;
+	}
+
+	public void setDuracaoFilmeField(TextField duracaoFilmeField) {
+		this.duracaoFilmeField = duracaoFilmeField;
+	}
+
+	public ConteudoService getConteudoService() {
+		return conteudoService;
+	}
+
+	public void setConteudoService(ConteudoService conteudoService) {
+		this.conteudoService = conteudoService;
+	}
+
 	@FXML
 	public void handleCadastrar() {
-		if(validaCampos()){
+		if(validaCamposConteudo()){
 			conteudo = new Conteudo();
 			conteudo.setNome(nomeField.getText());
 			conteudo.setClassificacaoEtaria(classificacaoEtariaComboBox.getValue());
@@ -94,21 +120,21 @@ public class CadastroConteudoController {
 			conteudo.setTipo(tipoComboBox.getValue());
 			conteudoService.salvarOuAtualizar(conteudo);
 			if (conteudo.getTipo().equals("Filme")){
-				Filme filmeAux = new Filme();
-				filmeAux.setConteudo(conteudo);
-				main.showCadastroFilme(filmeAux);
+				filme = new Filme();
+				filme.setConteudo(conteudo);
+				main.showCadastroFilme(filme);
 			} else if (conteudo.getTipo().equals("Seriado")){
-				Seriado seriadoAux = new Seriado();
-				seriadoAux.setConteudo(conteudo);
-				main.showCadastroSeriado(seriadoAux);
+				seriado = new Seriado();
+				seriado.setConteudo(conteudo);
+				main.showCadastroSeriado(seriado);
 			}
 		}
 	}
 
-	public boolean validaCampos() {
+	public boolean validaCamposConteudo() {
 		if (nomeField.getText() == null || classificacaoEtariaComboBox.getValue() == null
 				|| descricaoField.getText() == null || anoLancamentoField.getText() == null
-				|| atorPrincipalField.getText() == null || tipoComboBox.getValue() == null) {
+				|| atorPrincipalField.getText() == null) {
 			Alerta.alertaErro("Eita!", "É necessário preencher todos os campos.");
 			return false;
 		}
@@ -121,11 +147,45 @@ public class CadastroConteudoController {
 		return true;
 	}
 
+	private boolean validaCamposFilme(){
+		if(duracaoFilmeField.getText() == null){
+			Alerta.alertaErro("Eita.", "É necessário informar todos os campos.");
+			return false;
+		}
+		
+		return true;
+	}
+	
 	@FXML
 	private void handleCancelar() {
 		this.stage.close();
 	}
 
+	@FXML
+	private void handleCadastrarFilme() {
+		if(validaCamposConteudo() && validaCamposFilme()){
+			conteudo = new Conteudo();
+			conteudo.setNome(nomeField.getText());
+			conteudo.setClassificacaoEtaria(classificacaoEtariaComboBox.getValue());
+			conteudo.setDescricao(descricaoField.getText());
+			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
+			conteudo.setAtorPrincipal(atorPrincipalField.getText());
+			conteudo.setTipo(tipoComboBox.getValue());
+			//conteudoService.salvarOuAtualizar(conteudo);
+			filme = new Filme();
+			filme.setConteudo(conteudo);
+			filme.setDuracao(duracaoFilmeField.getText());
+			filmeService.salvarOuAtualizar(filme);
+			Alerta.alertaSucesso("Show!", "Filme cadastrado com sucesso. :)");
+			filme = new Filme();
+		}
+	}
+
+	@FXML
+	private void handleCadastrarSeriado() {
+		
+	}	
+	
 	public TextField getDescricaoField() {
 		return descricaoField;
 	}
@@ -188,5 +248,45 @@ public class CadastroConteudoController {
 
 	public void setConteudo(Conteudo conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public Filme getFilme() {
+		return filme;
+	}
+
+	public void setFilme(Filme filme) {
+		this.filme = filme;
+	}
+
+	public Seriado getSeriado() {
+		return seriado;
+	}
+
+	public void setSeriado(Seriado seriado) {
+		this.seriado = seriado;
+	}
+
+	public Temporada getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(Temporada temporada) {
+		this.temporada = temporada;
+	}
+
+	public Episodio getEpisodio() {
+		return episodio;
+	}
+
+	public void setEpisodio(Episodio episodio) {
+		this.episodio = episodio;
+	}
+
+	public FilmeService getFilmeService() {
+		return filmeService;
+	}
+
+	public void setFilmeService(FilmeService filmeService) {
+		this.filmeService = filmeService;
 	}
 }

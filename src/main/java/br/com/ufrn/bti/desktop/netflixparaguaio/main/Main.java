@@ -143,7 +143,7 @@ public class Main extends Application {
 			dialogStage.setScene(scene);
 
 			// Define a pessoa no controller.
-			CadastroFilmeController controller = loader.getController();
+			CadastroConteudoController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 
@@ -173,7 +173,7 @@ public class Main extends Application {
 			dialogStage.setScene(scene);
 
 			// Define a pessoa no controller.
-			CadastroSeriadoController controller = loader.getController();
+			CadastroConteudoController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 

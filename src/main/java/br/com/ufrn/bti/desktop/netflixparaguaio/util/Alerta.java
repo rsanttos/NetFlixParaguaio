@@ -13,7 +13,7 @@ public class Alerta {
 		alert.showAndWait();
 	}
 	public static void alertaSucesso(String textoHeader, String textoMensagem) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Show! :)");
 		alert.setHeaderText(textoHeader);
 		alert.setContentText(textoMensagem);
