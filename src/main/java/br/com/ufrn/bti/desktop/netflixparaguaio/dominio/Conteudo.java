@@ -1,7 +1,5 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.dominio;
 
-import java.io.File;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +16,7 @@ public class Conteudo {
 	@SequenceGenerator(name="SEQ_CONTEUDO", schema = "public", sequenceName="id_conteudo", allocationSize=1)
 	private int id;
 	
-	public int classificacaoEtaria;
+	public String classificacaoEtaria;
 	public String nome;
 	public String descricao;
 	public int anoLancamento;
@@ -38,11 +36,11 @@ public class Conteudo {
 		this.id = id;
 	}
 
-	public int getClassificacaoEtaria() {
+	public String getClassificacaoEtaria() {
 		return classificacaoEtaria;
 	}
 
-	public void setClassificacaoEtaria(int classificacaoEtaria) {
+	public void setClassificacaoEtaria(String classificacaoEtaria) {
 		this.classificacaoEtaria = classificacaoEtaria;
 	}
 

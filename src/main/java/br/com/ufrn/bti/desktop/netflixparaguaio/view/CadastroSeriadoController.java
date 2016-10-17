@@ -11,7 +11,7 @@ public class CadastroSeriadoController {
 	@FXML
 	private TextField qtdTemporadas;
 
-	private Stage dialogStage;
+	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
 	
@@ -26,12 +26,12 @@ public class CadastroSeriadoController {
 		this.qtdTemporadas = qtdTemporadas;
 	}
 
-	public Stage getDialogStage() {
-		return dialogStage;
+	public Stage getStage() {
+		return stage;
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	public boolean isEntrarClicked() {
@@ -68,7 +68,7 @@ public class CadastroSeriadoController {
 	}
 	
     @FXML
-    private void handleCancel() {
-        dialogStage.close();
+    private void handleCancelar() {
+        stage.close();
     }
 }

@@ -3,8 +3,12 @@ package br.com.ufrn.bti.desktop.netflixparaguaio.main;
 import java.io.IOException;
 
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroConteudoController;
+import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroFilmeController;
+import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroSeriadoController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroUsuarioController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.LoginController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.RootLayoutController;
@@ -68,19 +72,19 @@ public class Main extends Application {
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/cadastroConteudo.fxml"));
+			loader.setLocation(Main.class.getResource("../view/cadastroUsuario.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
 
 			// Cria o palco dialogStage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Conteúdo");
+			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Usuário");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
 			// Define a pessoa no controller.
-			CadastroConteudoController controller = loader.getController();
+			CadastroUsuarioController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 
@@ -110,6 +114,66 @@ public class Main extends Application {
 
 			// Define a pessoa no controller.
 			CadastroConteudoController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean showCadastroFilme(Filme filme) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/cadastroFilme.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Filme");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			CadastroFilmeController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.setMain(this);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean showCadastroSeriado(Seriado seriado) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/cadastroSeriado.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Cadastro de Seriado");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			CadastroSeriadoController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 

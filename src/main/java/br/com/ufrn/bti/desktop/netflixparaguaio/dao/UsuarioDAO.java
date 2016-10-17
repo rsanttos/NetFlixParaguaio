@@ -15,6 +15,7 @@ public class UsuarioDAO extends GenericDAO {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 		listaUsuarios = session.createQuery("SELECT f FROM Usuario f").getResultList();
+		session.close();
 		return listaUsuarios;
 	}
 
@@ -26,6 +27,7 @@ public class UsuarioDAO extends GenericDAO {
 		Query q = session.createQuery("SELECT f FROM Usuario f WHERE f.id = :id");
         q.setInteger("id", id);
 		usuario = (Usuario) q.getSingleResult(); 
+		session.close(); 
 		return usuario;
 	}
 
@@ -37,6 +39,7 @@ public class UsuarioDAO extends GenericDAO {
 		Query q = session.createQuery("SELECT f FROM Usuario f WHERE f.login = :login");
         q.setString("login", login);
 		usuario = (Usuario) q.getSingleResult(); 
+		session.close();
 		return usuario;
 	}
 }

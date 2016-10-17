@@ -5,6 +5,10 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.ConteudoService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -20,22 +24,30 @@ public class CadastroConteudoController {
 	private TextField anoLancamentoField;
 	@FXML
 	private TextField atorPrincipalField;
+	private ObservableList<String> opcoesClassificacaoComboBox = FXCollections.observableArrayList("Livre", "10 anos",
+			"12 anos", "14 anos", "16 anos", "18 anos");
 	@FXML
-	private ComboBox<Integer> classificacaoEtariaComboBox;
+	private ComboBox<String> classificacaoEtariaComboBox = new ComboBox<String>();
+	private ObservableList<String> opcoesTipoComboBox = FXCollections.observableArrayList("Filme", "Seriado");
 	@FXML
-	private ComboBox<String> tipoComboBox;
+	private ComboBox<String> tipoComboBox = new ComboBox<String>();
 
 	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
-	
+
 	private Conteudo conteudo;
-	private Filme filme;
-	private Seriado seriado;
-	private Episodio episodio;
+
+	private ConteudoService conteudoService = new ConteudoService();
+	
+	public CadastroConteudoController() {
+		initialize();
+	}
 
 	@FXML
 	private void initialize() {
+		classificacaoEtariaComboBox.getItems().addAll(opcoesClassificacaoComboBox);
+		tipoComboBox.getItems().addAll(opcoesTipoComboBox);
 	}
 
 	public TextField getNomeField() {
@@ -45,7 +57,6 @@ public class CadastroConteudoController {
 	public void setNomeField(TextField nomeField) {
 		this.nomeField = nomeField;
 	}
-	
 
 	public Stage getStage() {
 		return stage;
@@ -71,39 +82,50 @@ public class CadastroConteudoController {
 		this.main = main;
 	}
 
-	public Filme getFilme() {
-		return filme;
+	@FXML
+	public void handleCadastrar() {
+		if(validaCampos()){
+			conteudo = new Conteudo();
+			conteudo.setNome(nomeField.getText());
+			conteudo.setClassificacaoEtaria(classificacaoEtariaComboBox.getValue());
+			conteudo.setDescricao(descricaoField.getText());
+			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
+			conteudo.setAtorPrincipal(atorPrincipalField.getText());
+			conteudo.setTipo(tipoComboBox.getValue());
+			conteudoService.salvarOuAtualizar(conteudo);
+			if (conteudo.getTipo().equals("Filme")){
+				Filme filmeAux = new Filme();
+				filmeAux.setConteudo(conteudo);
+				main.showCadastroFilme(filmeAux);
+			} else if (conteudo.getTipo().equals("Seriado")){
+				Seriado seriadoAux = new Seriado();
+				seriadoAux.setConteudo(conteudo);
+				main.showCadastroSeriado(seriadoAux);
+			}
+		}
 	}
 
-	public void setFilme(Filme filme) {
-		this.filme = filme;
-	}
+	public boolean validaCampos() {
+		if (nomeField.getText() == null || classificacaoEtariaComboBox.getValue() == null
+				|| descricaoField.getText() == null || anoLancamentoField.getText() == null
+				|| atorPrincipalField.getText() == null || tipoComboBox.getValue() == null) {
+			Alerta.alertaErro("Eita!", "É necessário preencher todos os campos.");
+			return false;
+		}
 
-	public Seriado getSeriado() {
-		return seriado;
-	}
-
-	public void setSeriado(Seriado seriado) {
-		this.seriado = seriado;
-	}
-
-	public Episodio getEpisodio() {
-		return episodio;
-	}
-
-	public void setEpisodio(Episodio episodio) {
-		this.episodio = episodio;
+		if (anoLancamentoField.getText().length() != 4) {
+			Alerta.alertaErro("Algo de errado no campo do ano de lançamento.", "O ano deve conter 4 dígitos.");
+			return false;
+		}
+		
+		return true;
 	}
 
 	@FXML
-	public void handleCadastrar(){
-		
+	private void handleCancelar() {
+		this.stage.close();
 	}
-	
-    @FXML
-    private void handleCancelar() {
-        this.stage.close();
-    }
+
 	public TextField getDescricaoField() {
 		return descricaoField;
 	}
@@ -128,12 +150,28 @@ public class CadastroConteudoController {
 		this.atorPrincipalField = atorPrincipalField;
 	}
 
-	public ComboBox<Integer> getClassificacaoEtariaComboBox() {
+	public ObservableList<String> getOpcoesClassificacaoComboBox() {
+		return opcoesClassificacaoComboBox;
+	}
+
+	public void setOpcoesClassificacaoComboBox(ObservableList<String> opcoesClassificacaoComboBox) {
+		this.opcoesClassificacaoComboBox = opcoesClassificacaoComboBox;
+	}
+
+	public ComboBox<String> getClassificacaoEtariaComboBox() {
 		return classificacaoEtariaComboBox;
 	}
 
-	public void setClassificacaoEtariaComboBox(ComboBox<Integer> classificacaoEtariaComboBox) {
+	public void setClassificacaoEtariaComboBox(ComboBox<String> classificacaoEtariaComboBox) {
 		this.classificacaoEtariaComboBox = classificacaoEtariaComboBox;
+	}
+
+	public ObservableList<String> getOpcoesTipoComboBox() {
+		return opcoesTipoComboBox;
+	}
+
+	public void setOpcoesTipoComboBox(ObservableList<String> opcoesTipoComboBox) {
+		this.opcoesTipoComboBox = opcoesTipoComboBox;
 	}
 
 	public ComboBox<String> getTipoComboBox() {

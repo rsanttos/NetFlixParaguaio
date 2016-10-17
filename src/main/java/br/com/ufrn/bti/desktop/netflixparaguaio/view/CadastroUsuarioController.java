@@ -32,6 +32,11 @@ public class CadastroUsuarioController {
 	private boolean entrarClicked = false;
 	private Main main;
 	private Usuario usuario;
+	
+	public CadastroUsuarioController() {
+		usuario = new Usuario();
+		usuarioService = new UsuarioService();
+	}
 
 	@FXML
 	private void initialize() {
@@ -149,6 +154,8 @@ public class CadastroUsuarioController {
 			usuarioService.salvarOuAtualizar(usuario);
 			
 			Alerta.alertaSucesso("Tudo certo!", "Usuário cadastrado com sucesso.");
+			
+			usuario = new Usuario();
 		}
 	}
 	@FXML

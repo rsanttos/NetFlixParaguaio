@@ -11,7 +11,7 @@ public class CadastroFilmeController {
 	@FXML
 	private TextField duracaoField;
 
-	private Stage dialogStage;
+	private Stage stage;
 	private boolean entrarClicked = false;
 	private Main main;
 	
@@ -29,12 +29,12 @@ public class CadastroFilmeController {
 		this.duracaoField = duracaoField;
 	}
 
-	public Stage getDialogStage() {
-		return dialogStage;
+	public Stage getStage() {
+		return stage;
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 
 	public boolean isEntrarClicked() {
@@ -68,7 +68,7 @@ public class CadastroFilmeController {
 	}
 	
     @FXML
-    private void handleCancel() {
-        dialogStage.close();
+    private void handleCancelar() {
+        stage.close();
     }
 }

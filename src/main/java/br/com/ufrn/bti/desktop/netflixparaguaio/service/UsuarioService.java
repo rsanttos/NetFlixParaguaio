@@ -7,9 +7,11 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dao.UsuarioDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 
 public class UsuarioService extends GenericService {
+	private PessoaService pessoaService;
 	private UsuarioDAO usuarioDao;
 	
 	public UsuarioService(){
+		pessoaService = new PessoaService();
 		usuarioDao = new UsuarioDAO();
 	}
 	
@@ -48,5 +50,12 @@ public class UsuarioService extends GenericService {
 			return usuarioAux;
 		}
 		return usuarioAux;
+	}
+	
+	public void salvarOuAtualizar(Usuario usuario){
+		if(usuario != null){
+			pessoaService.salvarOuAtualizar(usuario.getPessoa());
+			usuarioDao.salvarOuAtualizar(usuario);
+		}
 	}
 }
