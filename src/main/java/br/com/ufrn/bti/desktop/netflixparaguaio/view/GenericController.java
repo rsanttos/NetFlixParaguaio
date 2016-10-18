@@ -1,11 +1,17 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import java.io.File;
+
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.UsuarioService;
+import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class GenericController {
 	private Usuario usuarioLogado;
 	private UsuarioService usuarioService;
+	
 	
 	public Usuario getUsuarioLogado(String login) {
 		if(usuarioService.buscarPeloLogin(login) != null){
@@ -23,5 +29,13 @@ public class GenericController {
 		this.usuarioService = usuarioService;
 	}
 	
-	
+	@FXML
+	public File escolheArquivo(Stage stage){
+		FileChooser fileChooser = new FileChooser();
+		File arquivo = fileChooser.showOpenDialog(stage);
+		if(arquivo != null){
+			return arquivo;
+		}
+		return null;
+	}
 }

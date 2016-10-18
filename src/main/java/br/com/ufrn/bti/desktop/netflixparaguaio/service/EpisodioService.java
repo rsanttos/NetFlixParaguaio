@@ -8,7 +8,6 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 
 public class EpisodioService extends GenericService {
 	private EpisodioDAO episodioDao;
-	private TemporadaService temporadaService;
 	
 	public EpisodioService(){
 		episodioDao = new EpisodioDAO();

@@ -1,5 +1,7 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import java.io.File;
+
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
@@ -13,8 +15,10 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class CadastroConteudoController {
@@ -38,6 +42,8 @@ public class CadastroConteudoController {
 	private TextField duracaoFilmeField;
 	@FXML
 	private TextField qtdTemporadasField;
+	@FXML
+	private Button btnEscolheArquivo;
 
 
 	private Stage stage;
@@ -54,12 +60,18 @@ public class CadastroConteudoController {
 	private FilmeService filmeService = new FilmeService();
 	private SeriadoService seriadoService = new SeriadoService();
 	
+	private String caminhoArquivo;
+	private File arquivo;
+	
 	public CadastroConteudoController() {
 		initialize();
 	}
 
 	@FXML
 	private void initialize() {
+		conteudo = new Conteudo();
+		filme = new Filme();
+		seriado = new Seriado();
 		classificacaoEtariaComboBox.getItems().addAll(opcoesClassificacaoComboBox);
 		tipoComboBox.getItems().addAll(opcoesTipoComboBox);
 	}
@@ -112,6 +124,26 @@ public class CadastroConteudoController {
 		this.conteudoService = conteudoService;
 	}
 
+	public Button getBtnEscolheArquivo() {
+		return btnEscolheArquivo;
+	}
+
+	public void setBtnEscolheArquivo(Button btnEscolheArquivo) {
+		this.btnEscolheArquivo = btnEscolheArquivo;
+	}
+	
+	@FXML
+	public void handleEscolheArquivo(){
+		FileChooser fileChooser = new FileChooser();
+		arquivo = fileChooser.showOpenDialog(stage);
+		if(arquivo != null){
+			String nome = arquivo.getName();
+			File arquivoAux = new File("/Users/ramonsantos/bti/workspaces/programacao_desktop/arquivos/filmes/" + nome);
+			arquivo.renameTo(arquivoAux);
+			caminhoArquivo = arquivoAux.getAbsolutePath();
+		}
+	}
+
 	@FXML
 	public void handleCadastrar() {
 		if(validaCamposConteudo()){
@@ -152,7 +184,7 @@ public class CadastroConteudoController {
 	}
 
 	private boolean validaCamposFilme(){
-		if(duracaoFilmeField.getText() == null){
+		if(duracaoFilmeField.getText() == null || caminhoArquivo == null){
 			Alerta.alertaErro("Eita.", "É necessário informar todos os campos.");
 			return false;
 		}
@@ -168,7 +200,6 @@ public class CadastroConteudoController {
 	@FXML
 	private void handleCadastrarFilme() {
 		if(validaCamposConteudo() && validaCamposFilme()){
-			conteudo = new Conteudo();
 			conteudo.setNome(nomeField.getText());
 			conteudo.setClassificacaoEtaria(classificacaoEtariaComboBox.getValue());
 			conteudo.setDescricao(descricaoField.getText());
@@ -176,9 +207,9 @@ public class CadastroConteudoController {
 			conteudo.setAtorPrincipal(atorPrincipalField.getText());
 			conteudo.setTipo(tipoComboBox.getValue());
 			//conteudoService.salvarOuAtualizar(conteudo);
-			filme = new Filme();
 			filme.setConteudo(conteudo);
 			filme.setDuracao(duracaoFilmeField.getText());
+			filme.setCaminhoArquivo(caminhoArquivo);
 			filmeService.salvarOuAtualizar(filme);
 			Alerta.alertaSucesso("Show!", "Filme cadastrado com sucesso. :)");
 			filme = new Filme();
@@ -333,5 +364,20 @@ public class CadastroConteudoController {
 		this.seriadoService = seriadoService;
 	}
 
+	public File getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(File arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	public String getCaminhoArquivo() {
+		return caminhoArquivo;
+	}
+
+	public void setCaminhoArquivo(String caminhoArquivo) {
+		this.caminhoArquivo = caminhoArquivo;
+	}
 	
 }
