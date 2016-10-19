@@ -43,7 +43,9 @@ public class CadastroConteudoController {
 	@FXML
 	private TextField qtdTemporadasField;
 	@FXML
-	private Button btnEscolheArquivo;
+	private Button btnEscolheArquivoFilme;
+	@FXML
+	private Button btnEscolheImgPrincipalSeriado;
 
 
 	private Stage stage;
@@ -60,7 +62,8 @@ public class CadastroConteudoController {
 	private FilmeService filmeService = new FilmeService();
 	private SeriadoService seriadoService = new SeriadoService();
 	
-	private String caminhoArquivo;
+	private String caminhoImgPrincipal;
+	private String caminhoArquivoFilme;
 	private File arquivo;
 	
 	public CadastroConteudoController() {
@@ -123,24 +126,45 @@ public class CadastroConteudoController {
 	public void setConteudoService(ConteudoService conteudoService) {
 		this.conteudoService = conteudoService;
 	}
-
-	public Button getBtnEscolheArquivo() {
-		return btnEscolheArquivo;
+	
+	public Button getBtnEscolheArquivoFilme() {
+		return btnEscolheArquivoFilme;
 	}
 
-	public void setBtnEscolheArquivo(Button btnEscolheArquivo) {
-		this.btnEscolheArquivo = btnEscolheArquivo;
+	public void setBtnEscolheArquivoFilme(Button btnEscolheArquivoFilme) {
+		this.btnEscolheArquivoFilme = btnEscolheArquivoFilme;
+	}
+
+	public Button getBtnEscolheImgPrincipalSeriado() {
+		return btnEscolheImgPrincipalSeriado;
+	}
+
+	public void setBtnEscolheImgPrincipalSeriado(Button btnEscolheImgPrincipalSeriado) {
+		this.btnEscolheImgPrincipalSeriado = btnEscolheImgPrincipalSeriado;
+	}
+
+	@FXML
+	public void handleEscolheImgPrincipal(){
+		FileChooser fileChooser = new FileChooser();
+		arquivo = fileChooser.showOpenDialog(stage);
+		if(arquivo != null){
+			String nome = arquivo.getName();
+			File arquivoAux = new File("/Users/ramonsantos/bti/workspaces/programacao_desktop/arquivos/img/" + nome);
+			arquivo.renameTo(arquivoAux);
+			caminhoImgPrincipal = arquivoAux.getAbsolutePath();
+		}
 	}
 	
+
 	@FXML
-	public void handleEscolheArquivo(){
+	public void handleEscolheArquivoFilme(){
 		FileChooser fileChooser = new FileChooser();
 		arquivo = fileChooser.showOpenDialog(stage);
 		if(arquivo != null){
 			String nome = arquivo.getName();
 			File arquivoAux = new File("/Users/ramonsantos/bti/workspaces/programacao_desktop/arquivos/filmes/" + nome);
 			arquivo.renameTo(arquivoAux);
-			caminhoArquivo = arquivoAux.getAbsolutePath();
+			caminhoArquivoFilme = arquivoAux.getAbsolutePath();
 		}
 	}
 
@@ -170,7 +194,7 @@ public class CadastroConteudoController {
 	public boolean validaCamposConteudo() {
 		if (nomeField.getText() == null || classificacaoEtariaComboBox.getValue() == null
 				|| descricaoField.getText() == null || anoLancamentoField.getText() == null
-				|| atorPrincipalField.getText() == null) {
+				|| atorPrincipalField.getText() == null || caminhoImgPrincipal == null) {
 			Alerta.alertaErro("Eita!", "É necessário preencher todos os campos.");
 			return false;
 		}
@@ -184,7 +208,7 @@ public class CadastroConteudoController {
 	}
 
 	private boolean validaCamposFilme(){
-		if(duracaoFilmeField.getText() == null || caminhoArquivo == null){
+		if(duracaoFilmeField.getText() == null || caminhoArquivoFilme == null){
 			Alerta.alertaErro("Eita.", "É necessário informar todos os campos.");
 			return false;
 		}
@@ -209,7 +233,7 @@ public class CadastroConteudoController {
 			//conteudoService.salvarOuAtualizar(conteudo);
 			filme.setConteudo(conteudo);
 			filme.setDuracao(duracaoFilmeField.getText());
-			filme.setCaminhoArquivo(caminhoArquivo);
+			filme.setCaminhoArquivo(caminhoArquivoFilme);
 			filmeService.salvarOuAtualizar(filme);
 			Alerta.alertaSucesso("Show!", "Filme cadastrado com sucesso. :)");
 			filme = new Filme();
@@ -225,6 +249,7 @@ public class CadastroConteudoController {
 			conteudo.setDescricao(descricaoField.getText());
 			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
 			conteudo.setAtorPrincipal(atorPrincipalField.getText());
+			conteudo.setCaminhoImgPrincipal(caminhoImgPrincipal);
 			seriado = new Seriado();
 			seriado.setConteudo(conteudo);
 			seriado.setQtdTemporadas(Integer.parseInt(qtdTemporadasField.getText()));
@@ -372,12 +397,19 @@ public class CadastroConteudoController {
 		this.arquivo = arquivo;
 	}
 
-	public String getCaminhoArquivo() {
-		return caminhoArquivo;
+	public String getCaminhoImgPrincipal() {
+		return caminhoImgPrincipal;
 	}
 
-	public void setCaminhoArquivo(String caminhoArquivo) {
-		this.caminhoArquivo = caminhoArquivo;
+	public void setCaminhoImgPrincipal(String caminhoImgPrincipal) {
+		this.caminhoImgPrincipal = caminhoImgPrincipal;
 	}
-	
+
+	public String getCaminhoArquivoFilme() {
+		return caminhoArquivoFilme;
+	}
+
+	public void setCaminhoArquivoFilme(String caminhoArquivoFilme) {
+		this.caminhoArquivoFilme = caminhoArquivoFilme;
+	}	
 }

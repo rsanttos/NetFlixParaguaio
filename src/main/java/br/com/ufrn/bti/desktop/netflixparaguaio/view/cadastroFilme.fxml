@@ -11,15 +11,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="314.0" prefWidth="380.0" stylesheets="@style/DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroConteudoController">
+<AnchorPane prefHeight="338.0" prefWidth="380.0" stylesheets="@style/DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroConteudoController">
 	<children>
-		<GridPane layoutX="11.0" layoutY="60.0" prefHeight="56.0" prefWidth="359.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
+		<GridPane layoutX="10.0" layoutY="60.0" prefHeight="197.0" prefWidth="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="138.0" />
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="10.0" prefWidth="221.0" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />
@@ -35,14 +36,16 @@
 				<Label text="Ator Principal" GridPane.rowIndex="4" />
 				<Label text="Classificação Etária" GridPane.rowIndex="5" />
 				<Label text="Duração" GridPane.rowIndex="6" />
-				<Label text="Arquivo" GridPane.rowIndex="7" />
+				<Label text="Imagem Principal" GridPane.rowIndex="7" />
+				<Label text="Arquivo" GridPane.rowIndex="8" />
 				<TextField fx:id="nomeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 				<TextField fx:id="descricaoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 				<TextField fx:id="anoLancamentoField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 				<TextField fx:id="atorPrincipalField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 				<TextField fx:id="duracaoFilmeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ComboBox fx:id="classificacaoEtariaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#handleEscolheArquivo" text="Escolher arquivo" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" onAction="#handleEscolheImgPrincipal" text="Escolher imagem" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" onAction="#handleEscolheArquivoFilme" text="Escolher arquivo" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 			</children>
 		</GridPane>
 		<HBox layoutX="197.1875" layoutY="241.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">

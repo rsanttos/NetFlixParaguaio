@@ -22,7 +22,6 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Conteúdo">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleNewConteudo" text="Novo conteúdo" />
                   <MenuItem mnemonicParsing="false" onAction="#handleNewFilme" text="Novo filme" />
                   <MenuItem mnemonicParsing="false" onAction="#handleNewSeriado" text="Novo seriado" />
                   <MenuItem mnemonicParsing="false" onAction="#handleListarFilmesAdmin" text="Ver filmes" />

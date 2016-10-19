@@ -35,14 +35,16 @@
 				<Label text="Ator Principal" GridPane.rowIndex="4" />
 				<Label text="Classificação Etária" GridPane.rowIndex="5" />
 				<Label text="Duração" GridPane.rowIndex="6" />
-				<Label text="Arquivo" GridPane.rowIndex="7" />
+				<Label text="Imagem Principal" GridPane.rowIndex="7" />
+				<Label text="Arquivo" GridPane.rowIndex="8" />
 				<TextField fx:id="nomeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 				<TextField fx:id="descricaoField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 				<TextField fx:id="anoLancamentoField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 				<TextField fx:id="atorPrincipalField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 				<TextField fx:id="duracaoFilmeField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ComboBox fx:id="classificacaoEtariaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#handleEscolheArquivo" text="Escolher arquivo" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" onAction="#handleEscolheImgPrincipal" text="Escolher imagem" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" onAction="#handleEscolheArquivoFilme" text="Escolher arquivo" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 			</children>
 		</GridPane>
 		<HBox layoutX="197.1875" layoutY="241.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
