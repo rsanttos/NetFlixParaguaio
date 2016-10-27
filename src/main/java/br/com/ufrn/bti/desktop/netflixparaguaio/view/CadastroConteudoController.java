@@ -43,10 +43,11 @@ public class CadastroConteudoController {
 	@FXML
 	private TextField qtdTemporadasField;
 	@FXML
+	private TextField imgPrincipalField;
+	@FXML
 	private Button btnEscolheArquivoFilme;
 	@FXML
 	private Button btnEscolheImgPrincipalSeriado;
-
 
 	private Stage stage;
 	private boolean entrarClicked = false;
@@ -194,7 +195,7 @@ public class CadastroConteudoController {
 	public boolean validaCamposConteudo() {
 		if (nomeField.getText() == null || classificacaoEtariaComboBox.getValue() == null
 				|| descricaoField.getText() == null || anoLancamentoField.getText() == null
-				|| atorPrincipalField.getText() == null || caminhoImgPrincipal == null) {
+				|| atorPrincipalField.getText() == null || imgPrincipalField.getText() == null) {
 			Alerta.alertaErro("Eita!", "É necessário preencher todos os campos.");
 			return false;
 		}
@@ -229,7 +230,7 @@ public class CadastroConteudoController {
 			conteudo.setDescricao(descricaoField.getText());
 			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
 			conteudo.setAtorPrincipal(atorPrincipalField.getText());
-			conteudo.setTipo(tipoComboBox.getValue());
+			conteudo.setTipo("Filme");
 			//conteudoService.salvarOuAtualizar(conteudo);
 			filme.setConteudo(conteudo);
 			filme.setDuracao(duracaoFilmeField.getText());
@@ -250,6 +251,7 @@ public class CadastroConteudoController {
 			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
 			conteudo.setAtorPrincipal(atorPrincipalField.getText());
 			conteudo.setCaminhoImgPrincipal(caminhoImgPrincipal);
+			conteudo.setTipo("Seriado");
 			seriado = new Seriado();
 			seriado.setConteudo(conteudo);
 			seriado.setQtdTemporadas(Integer.parseInt(qtdTemporadasField.getText()));
@@ -411,5 +413,14 @@ public class CadastroConteudoController {
 
 	public void setCaminhoArquivoFilme(String caminhoArquivoFilme) {
 		this.caminhoArquivoFilme = caminhoArquivoFilme;
+	}
+
+	public TextField getImgPrincipalField() {
+		return imgPrincipalField;
+	}
+
+	public void setImgPrincipalField(TextField imgPrincipalField) {
+		this.imgPrincipalField = imgPrincipalField;
 	}	
+	
 }

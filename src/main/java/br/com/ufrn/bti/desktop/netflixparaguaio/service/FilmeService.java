@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dao.ConteudoDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dao.FilmeDAO;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
+import javafx.collections.ObservableList;
 
 public class FilmeService extends GenericService {
 	
@@ -35,11 +36,27 @@ public class FilmeService extends GenericService {
 		}
 		return filmeAux;
 	}
-
+	
+	public Filme buscarPeloIdConteudo(int id){
+		Filme filmeAux = new Filme();
+		if(id > 0){
+			filmeAux = filmeDao.buscarPeloIdConteudo(id);
+		}
+		if(filmeAux != null){
+			return filmeAux;
+		}
+		return filmeAux;
+	}
+	
 	public void salvarOuAtualizar(Filme filme){
 		if(filme != null){
 			conteudoDao.salvarOuAtualizar(filme.getConteudo());
 			filmeDao.salvarOuAtualizar(filme);
 		}
 	}
+	
+	public ObservableList<Filme> listagemFilmes(){
+		return (ObservableList<Filme>) filmeDao.listar();
+	}
+	
 }

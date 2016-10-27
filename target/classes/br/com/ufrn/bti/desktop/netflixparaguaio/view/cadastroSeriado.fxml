@@ -42,7 +42,7 @@
 				<TextField fx:id="atorPrincipalField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 				<TextField fx:id="qtdTemporadasField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ComboBox fx:id="classificacaoEtariaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#handleEscolheImgPrincipal" text="Escolher Imagem" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="imgPrincipalField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 			</children>
 		</GridPane>
 		<HBox layoutX="197.1875" layoutY="241.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style/DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.RootLayoutController">
+<BorderPane prefHeight="700.0" prefWidth="900.0" stylesheets="@style/DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -22,7 +22,6 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Conteúdo">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleNewConteudo" text="Novo conteúdo" />
                   <MenuItem mnemonicParsing="false" onAction="#handleNewFilme" text="Novo filme" />
                   <MenuItem mnemonicParsing="false" onAction="#handleNewSeriado" text="Novo seriado" />
                   <MenuItem mnemonicParsing="false" onAction="#handleListarFilmesAdmin" text="Ver filmes" />

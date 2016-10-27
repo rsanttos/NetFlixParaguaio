@@ -15,6 +15,8 @@ public class ConteudoDAO extends GenericDAO {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 		listaConteudos = session.createQuery("SELECT f FROM Conteudo f").getResultList();
+		session.clear();
+		session.close();
 		return listaConteudos;
 	}
 
@@ -26,6 +28,8 @@ public class ConteudoDAO extends GenericDAO {
 		Query q = session.createQuery("SELECT f FROM Conteudo f WHERE f.id = :id");
         q.setInteger("id", id);
 		conteudo = (Conteudo) q.getSingleResult(); 
+		session.clear();
+		session.close();
 		return conteudo;
 	}
 }

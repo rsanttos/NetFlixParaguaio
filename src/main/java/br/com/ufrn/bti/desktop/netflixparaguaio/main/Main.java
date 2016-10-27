@@ -8,17 +8,22 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Temporada;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
+import br.com.ufrn.bti.desktop.netflixparaguaio.util.MediaControl;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroConteudoController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroEpisodioController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroTemporadaController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.CadastroUsuarioController;
+import br.com.ufrn.bti.desktop.netflixparaguaio.view.FilmeController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.LoginController;
 import br.com.ufrn.bti.desktop.netflixparaguaio.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -158,6 +163,25 @@ public class Main extends Application {
 			return false;
 		}
 	}
+	
+	public boolean showMediaPlayerFilme(){
+		
+		Stage stage = new Stage();
+		Group root = new Group();
+		Scene scene = new Scene(root, 540, 241);
+		
+		Media media = new Media("file:/Users/ramonsantos/bti/workspaces/programacao_desktop/arquivos/filmes/video2.flv");
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setAutoPlay(true);
+		
+		MediaControl mediaControl = new MediaControl(mediaPlayer);
+		scene.setRoot(mediaControl);
+		
+		stage.setScene(scene);
+		stage.show();        
+		
+		return true;
+	}
 
 	public boolean showCadastroSeriado(Seriado seriado) {
 		try {
@@ -254,7 +278,6 @@ public class Main extends Application {
 	public boolean showListagemFilmesAdmin() {
 		initRootLayoutAdmin();
 		try {
-			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/listagemFilmesAdmin.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
@@ -269,7 +292,7 @@ public class Main extends Application {
 
 			rootLayout.setCenter(page);
 			
-			CadastroConteudoController controller = loader.getController();
+			FilmeController controller = loader.getController();
 			controller.setStage(dialogStage);
 			controller.setMain(this);
 

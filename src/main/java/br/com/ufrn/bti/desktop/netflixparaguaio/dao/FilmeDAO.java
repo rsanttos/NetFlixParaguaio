@@ -21,6 +21,8 @@ public class FilmeDAO extends GenericDAO {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 		listaFilmes = session.createQuery("SELECT f FROM Filme f").getResultList();
+		session.clear();
+		session.close();
 		return listaFilmes;
 	}
 
@@ -32,6 +34,21 @@ public class FilmeDAO extends GenericDAO {
 		Query q = session.createQuery("SELECT f FROM Filme f WHERE f.id = :id");
         q.setInteger("id", id);
 		filme = (Filme) q.getSingleResult(); 
+		session.clear();
+		session.close();
+		return filme;
+	}
+
+	@SuppressWarnings({ "deprecation, rawtypes" })
+	public Filme buscarPeloIdConteudo(int id) {
+		Filme filme = new Filme();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+		Query q = session.createQuery("SELECT f FROM Filme f WHERE f.conteudo.id = :id");
+        q.setInteger("id", id);
+		filme = (Filme) q.getSingleResult(); 
+		session.clear();
+		session.close();
 		return filme;
 	}
 }
