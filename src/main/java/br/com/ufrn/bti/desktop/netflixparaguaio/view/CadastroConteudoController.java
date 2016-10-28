@@ -259,7 +259,7 @@ public class CadastroConteudoController extends GenericController {
 			seriadoService.salvarOuAtualizar(seriado);
 			Episodio episodio = new Episodio();
 			episodio.setSeriado(seriado);
-			main.showCadastroEpisodio(episodio);
+			main.showCadastroEpisodio(getUsuarioLogado(),episodio);
 			stage.close();
 		}
 	}	

@@ -275,7 +275,7 @@ public class Main extends Application {
 		}
 	}	
 
-	public boolean showCadastroEpisodio(Episodio episodio) {
+	public boolean showCadastroEpisodio(Usuario usuarioLogado, Episodio episodio) {
 		try {
 			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
 			FXMLLoader loader = new FXMLLoader();
@@ -292,6 +292,7 @@ public class Main extends Application {
 
 			// Define a pessoa no controller.
 			CadastroEpisodioController controller = loader.getController();
+			controller.setUsuarioLogado(usuarioLogado);
 			controller.setEpisodio(episodio);
 			controller.setStage(dialogStage);
 			controller.setMain(this);

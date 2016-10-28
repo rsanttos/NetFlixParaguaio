@@ -306,23 +306,30 @@ public class FilmeController extends GenericController{
 						Alerta.alertaErro("Danadinho!", "Você não tem idade para assistir esse conteúdo.");
 					}
 				}
-			});				
+			});
+			Label lbl2 = new Label("Ep" + String.valueOf(episodio.getNumeroEpisodio()));
+			Label lbl3 = new Label("S" + String.valueOf(episodio.getTemporada()));
+		
 			hbEpisodios.getChildren().add(btnAbrir);
+			hbEpisodios.getChildren().add(lbl2);
+			hbEpisodios.getChildren().add(lbl3);
 		}
 		
-		Image imgBtn = new Image("http://www.iconesgratis.net/imagens/aplicativos_0847_Add.png");
-		ImageView imgViewBtn = new ImageView(imgBtn);
-		imgViewBtn.setFitHeight(50);
-		imgViewBtn.setFitWidth(50);
-		btnAddEpisodio.setGraphic(imgViewBtn);
-		btnAddEpisodio.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Episodio episodio = new Episodio();
-				episodio.setSeriado(seriado);
-				main.showCadastroEpisodio(episodio);
-			}
-		});
+		if(getUsuarioLogado().getPermissao().equals("ADMIN")){
+			Image imgBtn = new Image("http://www.iconesgratis.net/imagens/aplicativos_0847_Add.png");
+			ImageView imgViewBtn = new ImageView(imgBtn);
+			imgViewBtn.setFitHeight(50);
+			imgViewBtn.setFitWidth(50);
+			btnAddEpisodio.setGraphic(imgViewBtn);
+			btnAddEpisodio.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					Episodio episodio = new Episodio();
+					episodio.setSeriado(seriado);
+					main.showCadastroEpisodio(getUsuarioLogado(), episodio);
+				}
+			});			
+		}
 		
 		spEpisodios.setContent(hbEpisodios);
 	}
