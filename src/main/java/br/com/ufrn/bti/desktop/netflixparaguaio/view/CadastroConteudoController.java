@@ -230,6 +230,7 @@ public class CadastroConteudoController {
 			conteudo.setDescricao(descricaoField.getText());
 			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
 			conteudo.setAtorPrincipal(atorPrincipalField.getText());
+			conteudo.setCaminhoImgPrincipal(imgPrincipalField.getText());
 			conteudo.setTipo("Filme");
 			//conteudoService.salvarOuAtualizar(conteudo);
 			filme.setConteudo(conteudo);
@@ -238,6 +239,8 @@ public class CadastroConteudoController {
 			filmeService.salvarOuAtualizar(filme);
 			Alerta.alertaSucesso("Show!", "Filme cadastrado com sucesso. :)");
 			filme = new Filme();
+			stage.close();
+			main.showListagemFilmesAdmin();
 		}
 	}
 
@@ -250,15 +253,15 @@ public class CadastroConteudoController {
 			conteudo.setDescricao(descricaoField.getText());
 			conteudo.setAnoLancamento(Integer.parseInt(anoLancamentoField.getText()));
 			conteudo.setAtorPrincipal(atorPrincipalField.getText());
-			conteudo.setCaminhoImgPrincipal(caminhoImgPrincipal);
+			conteudo.setCaminhoImgPrincipal(imgPrincipalField.getText());
 			conteudo.setTipo("Seriado");
 			seriado = new Seriado();
 			seriado.setConteudo(conteudo);
 			seriado.setQtdTemporadas(Integer.parseInt(qtdTemporadasField.getText()));
 			seriadoService.salvarOuAtualizar(seriado);
-			temporada = new Temporada();
-			temporada.setSeriado(seriado);
-			main.showCadastroTemporada(temporada);
+			Episodio episodio = new Episodio();
+			episodio.setSeriado(seriado);
+			main.showCadastroEpisodio(episodio);
 		}
 	}	
 	

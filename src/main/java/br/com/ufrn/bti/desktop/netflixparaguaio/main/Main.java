@@ -164,13 +164,44 @@ public class Main extends Application {
 		}
 	}
 	
-	public boolean showMediaPlayerFilme(){
+	public boolean showDetalhesFilme(Filme filme) {
+		try {
+			// Carrega o arquivo fxml e cria um novo stage para a janela popup.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/detalhesFilme.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Cria o palco dialogStage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("NetFlixParaguaio - Detalhes de Filme");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Define a pessoa no controller.
+			FilmeController controller = loader.getController();
+			controller.setStage(dialogStage);
+			controller.carregaComponentes(filme);
+			controller.setMain(this);
+
+			// Mostra a janela e espera até o usuário fechar.
+			dialogStage.showAndWait();
+
+			return controller.isEntrarClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean showMediaPlayerFilme(Filme filme){
 		
 		Stage stage = new Stage();
 		Group root = new Group();
 		Scene scene = new Scene(root, 540, 241);
 		
-		Media media = new Media("file:/Users/ramonsantos/bti/workspaces/programacao_desktop/arquivos/filmes/video2.flv");
+		//Media media = new Media("file:/Users/ramonsantos/bti/workspaces/programacao_desktop/arquivos/filmes/video2.flv");
+		Media media = new Media("file:" + filme.getCaminhoArquivo());
 		MediaPlayer mediaPlayer = new MediaPlayer(media);
 		mediaPlayer.setAutoPlay(true);
 		

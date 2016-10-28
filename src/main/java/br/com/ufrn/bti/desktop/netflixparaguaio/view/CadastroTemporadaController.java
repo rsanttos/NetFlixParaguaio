@@ -32,7 +32,7 @@ public class CadastroTemporadaController {
 			temporada.setQtdEpisodios(Integer.parseInt(qtdEpisodiosField.getText()));
 			temporadaService.salvarOuAtualizar(temporada);
 			Episodio episodio = new Episodio();
-			episodio.setTemporada(temporada);
+			//episodio.setTemporada(temporada);
 			main.showCadastroEpisodio(episodio);
 		}
 	}

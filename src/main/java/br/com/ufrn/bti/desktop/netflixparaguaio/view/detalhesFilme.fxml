@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="374.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.FilmeController">
+   <children>
+      <SplitPane dividerPositions="0.4879518072289157" layoutX="26.0" layoutY="32.0" prefHeight="311.0" prefWidth="500.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="221.0">
+               <children>
+                  <ImageView fx:id="imgViewDetalhes" fitHeight="274.0" fitWidth="245.0" layoutX="-1.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="242.0">
+               <children>
+                  <GridPane layoutY="-2.0" prefHeight="267.0" prefWidth="245.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="90.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="155.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="152.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Nome:" />
+                        <Label text="Descrição:" GridPane.rowIndex="1" />
+                        <Label text="Classificação:" GridPane.rowIndex="2" />
+                        <Label text="Ator Principal:" GridPane.rowIndex="3" />
+                        <Label text="Duração:" GridPane.rowIndex="4" />
+                        <Label fx:id="lblNome" prefHeight="36.0" prefWidth="155.0" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblDescricao" prefHeight="138.0" prefWidth="156.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblClassificacao" prefHeight="37.0" prefWidth="155.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblAtorPrincipal" prefHeight="35.0" prefWidth="154.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblDuracao" prefHeight="45.0" prefWidth="154.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Ano:" GridPane.rowIndex="5" />
+                        <Label fx:id="lblAno" prefHeight="45.0" prefWidth="154.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutX="5.0" layoutY="281.0" prefHeight="28.0" prefWidth="245.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleAddFavorito" prefHeight="35.0" prefWidth="115.0" text="Add Favorito" />
+                        <Button mnemonicParsing="false" onAction="#handleCancelar" prefHeight="29.0" prefWidth="119.0" text="Cancelar" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

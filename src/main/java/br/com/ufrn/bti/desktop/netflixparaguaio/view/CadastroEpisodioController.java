@@ -6,8 +6,11 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.EpisodioService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,6 +26,11 @@ public class CadastroEpisodioController {
 	private TextField duracaoEpField;
 	@FXML
 	private Button btnEscolheArquivo;
+	
+	private ObservableList<String> opcoesTemporadaComboBox = FXCollections.observableArrayList("1", "2",
+			"3", "4", "5", "6", "7", "8", "9", "10");
+	@FXML
+	private ComboBox<String> temporadaComboBox = new ComboBox<String>();
 
 	private Stage stage;
 	private boolean entrarClicked = false;
@@ -34,8 +42,15 @@ public class CadastroEpisodioController {
 	private String caminhoArquivo;
 	private File arquivo;
 
+	public CadastroEpisodioController(){
+		initialize();
+	}
+	
+	
 	@FXML
 	private void initialize() {
+		episodio = new Episodio();
+		temporadaComboBox.getItems().addAll(opcoesTemporadaComboBox);	
 	}
 
 	@FXML
@@ -45,6 +60,7 @@ public class CadastroEpisodioController {
 			episodio.setNome(nomeEpField.getText());
 			episodio.setNumeroEpisodio(Integer.parseInt(numeroEpField.getText()));
 			episodio.setCaminhoArquivo(caminhoArquivo);
+			episodio.setTemporada(Integer.parseInt(temporadaComboBox.getValue()));
 			episodioService.salvarOuAtualizar(episodio);
 			Alerta.alertaSucesso("Aê!!!", "Episódio salvo com sucesso.");
 		}

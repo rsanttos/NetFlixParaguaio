@@ -21,11 +21,12 @@ public class Episodio {
 	public String nome;
 	public String duracao;
 	public String caminhoArquivo;
+	public int temporada;
 	public int numeroEpisodio;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "id_temporada")
-	private Temporada temporada;
+	@JoinColumn(name = "id_seriado")
+	private Seriado seriado;
 	
 	public Episodio(){
 		
@@ -71,12 +72,21 @@ public class Episodio {
 		this.numeroEpisodio = numeroEpisodio;
 	}
 
-	public Temporada getTemporada() {
+	public int getTemporada() {
 		return temporada;
 	}
 
-	public void setTemporada(Temporada temporada) {
+	public void setTemporada(int temporada) {
 		this.temporada = temporada;
 	}
+
+	public Seriado getSeriado() {
+		return seriado;
+	}
+
+	public void setSeriado(Seriado seriado) {
+		this.seriado = seriado;
+	}
+
 	
 }

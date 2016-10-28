@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -27,6 +28,24 @@ public class FilmeController {
 
 	@FXML
 	private TableView<Filme> tabelaFilme;
+	
+	@FXML
+	private Label lblNome;
+	@FXML
+	private Label lblDescricao;
+	@FXML
+	private Label lblClassificacao;
+	@FXML
+	private Label lblAtorPrincipal;
+	@FXML
+	private Label lblDuracao;
+	@FXML
+	private Label lblAno;
+	@FXML
+	private ImageView imgViewDetalhes;
+	
+	@FXML
+	private AnchorPane apImgView;
 	
 	@FXML
 	private ScrollPane spFilmes;
@@ -66,6 +85,14 @@ public class FilmeController {
 //		this.colunaDescricao = new TableColumn<Filme, String>();
 //		this.colunaNome = new TableColumn<Filme, String>();
 //		this.colunaPlay = new TableColumn<Filme, String>();
+		lblNome = new Label();
+		lblDescricao = new Label();
+		lblClassificacao = new Label();
+		lblAtorPrincipal = new Label();
+		lblDuracao = new Label();
+		lblAno = new Label();
+		imgViewDetalhes = new ImageView();
+		apImgView = new AnchorPane();
 		spFilmes = new ScrollPane();
 		spSeries = new ScrollPane();
 		filmeService = new FilmeService();
@@ -96,7 +123,6 @@ public class FilmeController {
 		
 		for(Conteudo c : conteudos){
 			if(c.getTipo().equals("Filme")){
-				Label l = new Label(String.valueOf(c.getNome()));
 				hbFilmes.setSpacing(30);
 				hbFilmes.setAlignment(Pos.CENTER);
 				Image image = new Image(c.getCaminhoImgPrincipal());
@@ -111,10 +137,16 @@ public class FilmeController {
 						executarVideo(c);
 					}
 				});
+				Button btnDetalhes = new Button("Detalhes");
+				btnDetalhes.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						verDetalhesFilme(c);
+					}
+				});
 				hbFilmes.getChildren().add(btnPlay);
-				hbFilmes.getChildren().add(l);
+				hbFilmes.getChildren().add(btnDetalhes);
 			} else if(c.getTipo().equals("Seriado")){
-				Label l = new Label(String.valueOf(c.getNome()));
 				hbSeries.setSpacing(30);
 				hbSeries.setAlignment(Pos.CENTER);				
 				Image image = new Image(c.getCaminhoImgPrincipal());
@@ -129,8 +161,7 @@ public class FilmeController {
 						abrirTemporadas(c.getNome());
 					}
 				});
-				hbSeries.getChildren().add(btnAbrir);
-				hbSeries.getChildren().add(l);				
+				hbSeries.getChildren().add(btnAbrir);			
 			}
 		}
 		
@@ -164,14 +195,155 @@ public class FilmeController {
 	}
 	
 	public void executarVideo(Conteudo conteudo){
-		//Alerta.alertaSucesso(nome, "deu certo!");
 		Filme filme = new Filme();
 		filme = filmeService.buscarPeloIdConteudo(conteudo.getId());
-		Alerta.alertaSucesso(filme.getCaminhoArquivo(), "deu certo!");
-		//main.showMediaPlayerFilme();
+		//Alerta.alertaSucesso(filme.getCaminhoArquivo(), "deu certo!");
+		main.showMediaPlayerFilme(filme);
+	}
+	
+	public void verDetalhesFilme(Conteudo conteudo){
+		Filme filme = new Filme();
+		filme = filmeService.buscarPeloIdConteudo(conteudo.getId());
+		filme.setConteudo(conteudo);
+		main.showDetalhesFilme(filme);
+	}
+	
+	public void carregaComponentes(Filme filme){
+		lblNome.setText(filme.getConteudo().getNome());
+		lblDescricao.setText(filme.getConteudo().getDescricao());
+		lblClassificacao.setText(filme.getConteudo().getClassificacaoEtaria());
+		lblAtorPrincipal.setText(filme.getConteudo().getAtorPrincipal());
+		lblDuracao.setText(filme.getDuracao());
+		lblAno.setText(String.valueOf(filme.getConteudo().getAnoLancamento()));
+		Image image = new Image(filme.getConteudo().getCaminhoImgPrincipal());
+		imgViewDetalhes = new ImageView(image);
+		imgViewDetalhes.setVisible(true);
+		imgViewDetalhes.setFitWidth(200);
+		imgViewDetalhes.setFitHeight(200);
 	}
 	
 	public void abrirTemporadas(String nome){
 		Alerta.alertaSucesso(nome, "deu certo!");
 	}
+
+	public TableView<Filme> getTabelaFilme() {
+		return tabelaFilme;
+	}
+
+	public void setTabelaFilme(TableView<Filme> tabelaFilme) {
+		this.tabelaFilme = tabelaFilme;
+	}
+
+	public Label getLblNome() {
+		return lblNome;
+	}
+
+	public void setLblNome(Label lblNome) {
+		this.lblNome = lblNome;
+	}
+
+	public ScrollPane getSpFilmes() {
+		return spFilmes;
+	}
+
+	public void setSpFilmes(ScrollPane spFilmes) {
+		this.spFilmes = spFilmes;
+	}
+
+	public ScrollPane getSpSeries() {
+		return spSeries;
+	}
+
+	public void setSpSeries(ScrollPane spSeries) {
+		this.spSeries = spSeries;
+	}
+
+	public TableColumn<Filme, String> getColunaImgPrincipal() {
+		return colunaImgPrincipal;
+	}
+
+	public void setColunaImgPrincipal(TableColumn<Filme, String> colunaImgPrincipal) {
+		this.colunaImgPrincipal = colunaImgPrincipal;
+	}
+
+	public TableColumn<Filme, String> getColunaNome() {
+		return colunaNome;
+	}
+
+	public void setColunaNome(TableColumn<Filme, String> colunaNome) {
+		this.colunaNome = colunaNome;
+	}
+
+	public TableColumn<Filme, String> getColunaDescricao() {
+		return colunaDescricao;
+	}
+
+	public void setColunaDescricao(TableColumn<Filme, String> colunaDescricao) {
+		this.colunaDescricao = colunaDescricao;
+	}
+
+	public TableColumn<Filme, String> getColunaCensura() {
+		return colunaCensura;
+	}
+
+	public void setColunaCensura(TableColumn<Filme, String> colunaCensura) {
+		this.colunaCensura = colunaCensura;
+	}
+
+	public TableColumn<Filme, String> getColunaPlay() {
+		return colunaPlay;
+	}
+
+	public void setColunaPlay(TableColumn<Filme, String> colunaPlay) {
+		this.colunaPlay = colunaPlay;
+	}
+
+	public FilmeService getFilmeService() {
+		return filmeService;
+	}
+
+	public void setFilmeService(FilmeService filmeService) {
+		this.filmeService = filmeService;
+	}
+
+	public ConteudoService getConteudoService() {
+		return conteudoService;
+	}
+
+	public void setConteudoService(ConteudoService conteudoService) {
+		this.conteudoService = conteudoService;
+	}
+
+	public Label getLblDescricao() {
+		return lblDescricao;
+	}
+
+	public void setLblDescricao(Label lblDescricao) {
+		this.lblDescricao = lblDescricao;
+	}
+
+	public Label getLblClassificacao() {
+		return lblClassificacao;
+	}
+
+	public void setLblClassificacao(Label lblClassificacao) {
+		this.lblClassificacao = lblClassificacao;
+	}
+
+	public Label getLblAtorPrincipal() {
+		return lblAtorPrincipal;
+	}
+
+	public void setLblAtorPrincipal(Label lblAtorPrincipal) {
+		this.lblAtorPrincipal = lblAtorPrincipal;
+	}
+
+	public Label getLblDuracao() {
+		return lblDuracao;
+	}
+
+	public void setLblDuracao(Label lblDuracao) {
+		this.lblDuracao = lblDuracao;
+	}
+	
 }
