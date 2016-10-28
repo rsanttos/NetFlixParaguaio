@@ -15,6 +15,8 @@ public class EpisodioDAO extends GenericDAO {
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 		listaEpisodios = session.createQuery("SELECT f FROM Episodio f").getResultList();
+		session.clear();
+		session.close();
 		return listaEpisodios;
 	}
 
@@ -23,9 +25,22 @@ public class EpisodioDAO extends GenericDAO {
 		Episodio episodio = new Episodio();
 		session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-		Query q = session.createQuery("SELECT f FROM Episodio f WHERE f.id = :id");
+		Query<Episodio> q = session.createQuery("SELECT f FROM Episodio f WHERE f.id = :id");
         q.setInteger("id", id);
-		episodio = (Episodio) q.getSingleResult(); 
+		episodio = q.getSingleResult(); 
 		return episodio;
+	}
+
+	@SuppressWarnings({ "deprecation, rawtypes" })
+	public List<Episodio> buscarPeloIdSeriado(int id) {
+		List<Episodio> listaEpisodios = new ArrayList<Episodio>();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query<Episodio> q = session.createQuery("SELECT e FROM Episodio e WHERE e.seriado.id = :id");
+		q.setInteger("id", id);
+        listaEpisodios = q.getResultList();
+		session.clear();
+		session.close();
+		return listaEpisodios;
 	}
 }

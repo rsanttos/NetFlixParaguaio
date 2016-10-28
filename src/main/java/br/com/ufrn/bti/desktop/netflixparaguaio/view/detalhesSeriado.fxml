@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.FilmeController">
+   <children>
+      <SplitPane layoutX="26.0" layoutY="7.0" prefHeight="243.0" prefWidth="644.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="498.0">
+               <children>
+                  <GridPane layoutY="-2.0" prefHeight="108.0" prefWidth="641.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="102.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="151.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="103.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="146.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="62.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Nome:" />
+                        <Label text="Classificação:" GridPane.rowIndex="1" />
+                        <Label text="Ator Principal:" GridPane.columnIndex="2" />
+                        <Label fx:id="lblNome" prefHeight="31.0" prefWidth="155.0" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblClassificacao" prefHeight="37.0" prefWidth="155.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblAtorPrincipal" prefHeight="35.0" prefWidth="195.0" text="Label" GridPane.columnIndex="3" />
+                        <Label text="Ano:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblAno" prefHeight="40.0" prefWidth="191.0" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane layoutY="110.0" prefHeight="131.0" prefWidth="642.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="85.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.0" minWidth="10.0" prefWidth="413.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Descrição:" />
+                        <Label fx:id="lblDescricao" prefHeight="108.0" prefWidth="415.0" text="Label" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <ScrollPane fx:id="spEpisodios" layoutX="30.0" layoutY="259.0" prefHeight="224.0" prefWidth="579.0" />
+      <Button fx:id="btnAddEpisodio" layoutX="621.0" layoutY="357.0" mnemonicParsing="false" />
+   </children>
+</AnchorPane>

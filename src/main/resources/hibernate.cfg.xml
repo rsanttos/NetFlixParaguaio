@@ -23,7 +23,6 @@
 		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo" />
 		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio" />
 		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado" />
-		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Temporada" />
 		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario" />
 		<mapping class="br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Pessoa" />
 		<!-- <mapping resource="com/icesoft/icefaces/tutorial/crud/hibernate/Course.hbm.xml"/> 

@@ -22,6 +22,16 @@ public class ConteudoService extends GenericService {
 		return conteudos;
 	}
 	
+	
+	public List<Conteudo> buscarPorNomeEAtor(String nome, String atorPrincipal){
+		List<Conteudo> conteudos = new ArrayList<Conteudo>();
+		conteudos = conteudoDao.buscarPorNomeEAtor(nome, atorPrincipal);
+		if(conteudos.size() > 0){
+			return conteudos;
+		}
+		return conteudos;
+	}
+	
 	public Conteudo buscarPeloId(int id){
 		Conteudo conteudoAux = new Conteudo();
 		if(id > 0){
@@ -38,4 +48,6 @@ public class ConteudoService extends GenericService {
 			conteudoDao.salvarOuAtualizar(conteudo);
 		}
 	}
+	
+	
 }

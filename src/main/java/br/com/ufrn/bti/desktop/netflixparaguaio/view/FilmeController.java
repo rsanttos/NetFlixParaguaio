@@ -1,13 +1,23 @@
 package br.com.ufrn.bti.desktop.netflixparaguaio.view;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
+import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Usuario;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.ConteudoService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.EpisodioService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.FilmeService;
+import br.com.ufrn.bti.desktop.netflixparaguaio.service.SeriadoService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,13 +28,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class FilmeController {
+public class FilmeController extends GenericController{
 
 	@FXML
 	private TableView<Filme> tabelaFilme;
@@ -52,6 +63,9 @@ public class FilmeController {
 	
 	@FXML
 	private ScrollPane spSeries;	
+	
+	@FXML
+	private TextField pesquisaField;
 
 	@FXML
 	private TableColumn<Filme, String> colunaImgPrincipal;
@@ -68,9 +82,27 @@ public class FilmeController {
 	@FXML
 	private TableColumn<Filme, String> colunaPlay;
 	
+	@FXML
+	private ScrollPane spEpisodios;
+	
+	@FXML
+	private ScrollPane spPesquisaFilmes;
+	
+	@FXML
+	private ScrollPane spPesquisaSeriados;
+	@FXML
+	private ScrollPane spImgViewDetalhes;
+	
+	@FXML
+	private Button btnAddEpisodio;
+	
 	private Main main;
 	
 	private FilmeService filmeService;
+	
+	private EpisodioService episodioService;
+
+	private SeriadoService seriadoService;
 	
 	private ConteudoService conteudoService;
 
@@ -95,8 +127,13 @@ public class FilmeController {
 		apImgView = new AnchorPane();
 		spFilmes = new ScrollPane();
 		spSeries = new ScrollPane();
+		spImgViewDetalhes = new ScrollPane();
+		spEpisodios = new ScrollPane();
+		btnAddEpisodio = new Button();
 		filmeService = new FilmeService();
 		conteudoService = new ConteudoService();
+		episodioService = new EpisodioService();
+		seriadoService = new SeriadoService();
 	}
 	
 	@FXML
@@ -134,7 +171,11 @@ public class FilmeController {
 				btnPlay.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						executarVideo(c);
+						if(verificaCensura(c)){
+							executarVideo(c);							
+						} else {
+							Alerta.alertaErro("Danadinho!", "Você não tem idade para assistir esse conteúdo.");
+						}
 					}
 				});
 				Button btnDetalhes = new Button("Detalhes");
@@ -158,9 +199,9 @@ public class FilmeController {
 				btnAbrir.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						abrirTemporadas(c.getNome());
+						verDetalhesSeriado(c);
 					}
-				});
+				});				
 				hbSeries.getChildren().add(btnAbrir);			
 			}
 		}
@@ -198,7 +239,7 @@ public class FilmeController {
 		Filme filme = new Filme();
 		filme = filmeService.buscarPeloIdConteudo(conteudo.getId());
 		//Alerta.alertaSucesso(filme.getCaminhoArquivo(), "deu certo!");
-		main.showMediaPlayerFilme(filme);
+		main.showMediaPlayer(filme.getCaminhoArquivo());
 	}
 	
 	public void verDetalhesFilme(Conteudo conteudo){
@@ -208,22 +249,85 @@ public class FilmeController {
 		main.showDetalhesFilme(filme);
 	}
 	
-	public void carregaComponentes(Filme filme){
+	public void verDetalhesSeriado(Conteudo conteudo){
+		Seriado seriado = new Seriado();
+		seriado = seriadoService.buscarPeloIdConteudo(conteudo.getId());
+		seriado.setConteudo(conteudo);
+		main.showDetalhesSeriado(getUsuarioLogado(), seriado);
+	}
+	public void carregaComponentesFilme(Filme filme){
 		lblNome.setText(filme.getConteudo().getNome());
 		lblDescricao.setText(filme.getConteudo().getDescricao());
 		lblClassificacao.setText(filme.getConteudo().getClassificacaoEtaria());
 		lblAtorPrincipal.setText(filme.getConteudo().getAtorPrincipal());
 		lblDuracao.setText(filme.getDuracao());
 		lblAno.setText(String.valueOf(filme.getConteudo().getAnoLancamento()));
+		
+		HBox hb = new HBox();
+		
 		Image image = new Image(filme.getConteudo().getCaminhoImgPrincipal());
 		imgViewDetalhes = new ImageView(image);
 		imgViewDetalhes.setVisible(true);
 		imgViewDetalhes.setFitWidth(200);
-		imgViewDetalhes.setFitHeight(200);
+		imgViewDetalhes.setFitHeight(245);
+		
+		hb.getChildren().add(imgViewDetalhes);
+		
+		spImgViewDetalhes.setContent(hb);
 	}
 	
-	public void abrirTemporadas(String nome){
-		Alerta.alertaSucesso(nome, "deu certo!");
+	public void carregaComponentesSeriado(Seriado seriado){
+		HBox hbEpisodios = new HBox();
+		lblNome.setText(seriado.getConteudo().getNome());
+		lblDescricao.setText(seriado.getConteudo().getDescricao());
+		lblClassificacao.setText(seriado.getConteudo().getClassificacaoEtaria());
+		lblAtorPrincipal.setText(seriado.getConteudo().getAtorPrincipal());
+		lblAno.setText(String.valueOf(seriado.getConteudo().getAnoLancamento()));
+		
+		
+		List<Episodio> episodios = new ArrayList<Episodio>();
+		episodios = episodioService.listarPeloIdSeriado(seriado.getId());
+		
+		for(Episodio episodio : episodios){			
+			Image image = new Image(seriado.getConteudo().getCaminhoImgPrincipal());
+			hbEpisodios.setSpacing(30);
+			hbEpisodios.setAlignment(Pos.CENTER);				
+			ImageView imgView = new ImageView(image);
+			imgView.setFitWidth(200);
+			imgView.setFitHeight(200);
+			Button btnAbrir= new Button();
+			btnAbrir.setGraphic(imgView);
+			btnAbrir.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(verificaCensura(episodio.getSeriado().getConteudo())){
+						assistirEpisodio(episodio);							
+					} else {
+						Alerta.alertaErro("Danadinho!", "Você não tem idade para assistir esse conteúdo.");
+					}
+				}
+			});				
+			hbEpisodios.getChildren().add(btnAbrir);
+		}
+		
+		Image imgBtn = new Image("http://www.iconesgratis.net/imagens/aplicativos_0847_Add.png");
+		ImageView imgViewBtn = new ImageView(imgBtn);
+		imgViewBtn.setFitHeight(50);
+		imgViewBtn.setFitWidth(50);
+		btnAddEpisodio.setGraphic(imgViewBtn);
+		btnAddEpisodio.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Episodio episodio = new Episodio();
+				episodio.setSeriado(seriado);
+				main.showCadastroEpisodio(episodio);
+			}
+		});
+		
+		spEpisodios.setContent(hbEpisodios);
+	}
+	public void assistirEpisodio(Episodio ep){
+		main.showMediaPlayer(ep.getCaminhoArquivo());
 	}
 
 	public TableView<Filme> getTabelaFilme() {
@@ -346,4 +450,92 @@ public class FilmeController {
 		this.lblDuracao = lblDuracao;
 	}
 	
+	public boolean verificaCensura(Conteudo conteudo){
+		Usuario usuarioLogado = getUsuarioLogado();
+		if(conteudo.getClassificacaoEtaria().equals("Livre")){
+			return true;
+		} else {
+			String valor = conteudo.getClassificacaoEtaria().substring(0, 2);			
+			LocalDate dataAtual = LocalDate.now();
+		    Instant instant = usuarioLogado.getPessoa().getDataNascimento().toInstant();
+		    ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
+		    LocalDate date = zdt.toLocalDate();
+		    Period periodo = Period.between(date, dataAtual);
+		    int censura = Integer.parseInt(valor);
+		    int idade = periodo.getYears();
+		    if(idade >= censura){
+		    		return true;
+		    }			
+		}
+		return false;
+	}
+
+	@FXML
+	private void handleCancelar() {
+		stage.close();
+	}
+	
+	@FXML
+	private void handlePesquisar(){
+		if(pesquisaField.getText() != null){
+			List<Conteudo> conteudos = new ArrayList<Conteudo>();
+			conteudos = conteudoService.buscarPorNomeEAtor(pesquisaField.getText(), pesquisaField.getText());
+			
+			HBox hbFilmes = new HBox();
+			HBox hbSeries = new HBox();
+			
+			if(conteudos.size() > 0){				
+				for(Conteudo c : conteudos){
+					if(c.getTipo().equals("Filme")){
+						hbFilmes.setSpacing(30);
+						hbFilmes.setAlignment(Pos.CENTER);
+						Image image = new Image(c.getCaminhoImgPrincipal());
+						ImageView imgView = new ImageView(image);
+						imgView.setFitWidth(200);
+						imgView.setFitHeight(200);
+						Button btnPlay = new Button();
+						btnPlay.setGraphic(imgView);
+						btnPlay.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								if(verificaCensura(c)){
+									executarVideo(c);							
+								} else {
+									Alerta.alertaErro("Danadinho!", "Você não tem idade para assistir esse conteúdo.");
+								}
+							}
+						});
+						Button btnDetalhes = new Button("Detalhes");
+						btnDetalhes.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								verDetalhesFilme(c);
+							}
+						});
+						hbFilmes.getChildren().add(btnPlay);
+						hbFilmes.getChildren().add(btnDetalhes);
+					} else if(c.getTipo().equals("Seriado")){
+						hbSeries.setSpacing(30);
+						hbSeries.setAlignment(Pos.CENTER);				
+						Image image = new Image(c.getCaminhoImgPrincipal());
+						ImageView imgView = new ImageView(image);
+						imgView.setFitWidth(200);
+						imgView.setFitHeight(200);
+						Button btnAbrir= new Button();
+						btnAbrir.setGraphic(imgView);
+						btnAbrir.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								verDetalhesSeriado(c);
+							}
+						});				
+						hbSeries.getChildren().add(btnAbrir);			
+					}
+				}	
+				spPesquisaFilmes.setContent(hbFilmes);
+				spPesquisaSeriados.setContent(hbSeries);
+			}
+		}
+	}
+
 }

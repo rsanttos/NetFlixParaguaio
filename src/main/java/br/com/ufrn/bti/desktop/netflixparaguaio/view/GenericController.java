@@ -13,12 +13,17 @@ public class GenericController {
 	private UsuarioService usuarioService;
 	
 	
-	public Usuario getUsuarioLogado(String login) {
+	public Usuario buscarUsuarioLogado(String login) {
 		if(usuarioService.buscarPeloLogin(login) != null){
 			usuarioLogado = usuarioService.buscarPeloLogin(login);
 		}
 		return usuarioLogado;
 	}
+	
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}

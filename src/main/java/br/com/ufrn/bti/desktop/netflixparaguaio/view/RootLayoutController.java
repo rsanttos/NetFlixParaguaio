@@ -11,7 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 
-public class RootLayoutController {
+public class RootLayoutController extends GenericController {
 
 	// Referência à aplicação principal
 	private Main main;
@@ -66,7 +66,7 @@ public class RootLayoutController {
 
 	@FXML
 	private void handleListarFilmesUser() {
-		main.showListagemFilmesUser();
+		main.showListagemFilmesUser(getUsuarioLogado());
 	}
 	@FXML
 	private void handleListarSeriadosUser() {
@@ -74,7 +74,7 @@ public class RootLayoutController {
 	}
 	@FXML
 	private void handleListarFilmesAdmin() {
-		main.showListagemFilmesAdmin();
+		main.showListagemFilmesAdmin(getUsuarioLogado());
 	}
 	@FXML
 	private void handleListarSeriadosAdmin() {
@@ -82,7 +82,7 @@ public class RootLayoutController {
 	}
 	@FXML
 	private void handlePesquisar() {
-		main.showPesquisa();
+		main.showPesquisa(getUsuarioLogado());
 	}
 	/**
 	 * Abre uma janela Sobre.

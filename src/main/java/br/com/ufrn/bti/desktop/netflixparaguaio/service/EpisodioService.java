@@ -20,6 +20,15 @@ public class EpisodioService extends GenericService {
 		}
 		return episodios;
 	}
+
+	public List<Episodio> listarPeloIdSeriado(int id){
+		List<Episodio> episodios = new ArrayList<Episodio>();
+		episodios = episodioDao.buscarPeloIdSeriado(id);
+		if(episodios.size() > 0){
+			return episodios;
+		}
+		return null;
+	}
 	
 	public Episodio buscarPeloId(int id){
 		Episodio episodioAux = new Episodio();

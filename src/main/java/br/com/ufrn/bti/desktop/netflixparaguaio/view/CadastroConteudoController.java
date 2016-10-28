@@ -6,7 +6,6 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Conteudo;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Episodio;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Filme;
 import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Seriado;
-import br.com.ufrn.bti.desktop.netflixparaguaio.dominio.Temporada;
 import br.com.ufrn.bti.desktop.netflixparaguaio.main.Main;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.ConteudoService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.service.FilmeService;
@@ -21,7 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class CadastroConteudoController {
+public class CadastroConteudoController extends GenericController {
 
 	@FXML
 	private TextField nomeField;
@@ -56,7 +55,6 @@ public class CadastroConteudoController {
 	private Conteudo conteudo;
 	private Filme filme;
 	private Seriado seriado;
-	private Temporada temporada;
 	private Episodio episodio;
 
 	private ConteudoService conteudoService = new ConteudoService();
@@ -240,7 +238,7 @@ public class CadastroConteudoController {
 			Alerta.alertaSucesso("Show!", "Filme cadastrado com sucesso. :)");
 			filme = new Filme();
 			stage.close();
-			main.showListagemFilmesAdmin();
+			main.showListagemFilmesAdmin(getUsuarioLogado());
 		}
 	}
 
@@ -262,6 +260,7 @@ public class CadastroConteudoController {
 			Episodio episodio = new Episodio();
 			episodio.setSeriado(seriado);
 			main.showCadastroEpisodio(episodio);
+			stage.close();
 		}
 	}	
 	
@@ -353,15 +352,6 @@ public class CadastroConteudoController {
 	public void setSeriado(Seriado seriado) {
 		this.seriado = seriado;
 	}
-
-	public Temporada getTemporada() {
-		return temporada;
-	}
-
-	public void setTemporada(Temporada temporada) {
-		this.temporada = temporada;
-	}
-
 	public Episodio getEpisodio() {
 		return episodio;
 	}

@@ -34,6 +34,17 @@ public class SeriadoService extends GenericService {
 		}
 		return seriadoAux;
 	}
+	
+	public Seriado buscarPeloIdConteudo(int id){
+		Seriado seriadoAux = new Seriado();
+		if(id > 0){
+			seriadoAux = seriadoDao.buscarPeloIdConteudo(id);
+		}
+		if(seriadoAux != null){
+			return seriadoAux;
+		}
+		return seriadoAux;
+	}
 
 	public void salvarOuAtualizar(Seriado seriado){
 		if(seriado != null){

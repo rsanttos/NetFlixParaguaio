@@ -51,4 +51,5 @@ public class Seriado {
 	public void setConteudo(Conteudo conteudo) {
 		this.conteudo = conteudo;
 	}
+	
 }

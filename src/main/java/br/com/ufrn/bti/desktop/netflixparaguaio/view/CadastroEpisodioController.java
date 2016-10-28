@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class CadastroEpisodioController {
+public class CadastroEpisodioController extends GenericController{
 	@FXML
 	private TextField imgField;
 	@FXML
@@ -63,6 +63,9 @@ public class CadastroEpisodioController {
 			episodio.setTemporada(Integer.parseInt(temporadaComboBox.getValue()));
 			episodioService.salvarOuAtualizar(episodio);
 			Alerta.alertaSucesso("Aê!!!", "Episódio salvo com sucesso.");
+			stage.close();
+			main.showDetalhesSeriado(getUsuarioLogado(), episodio.getSeriado());
+			episodio = new Episodio();
 		}
 	}
 

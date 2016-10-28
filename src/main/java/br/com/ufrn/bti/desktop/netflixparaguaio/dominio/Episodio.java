@@ -72,20 +72,20 @@ public class Episodio {
 		this.numeroEpisodio = numeroEpisodio;
 	}
 
-	public int getTemporada() {
-		return temporada;
-	}
-
-	public void setTemporada(int temporada) {
-		this.temporada = temporada;
-	}
-
 	public Seriado getSeriado() {
 		return seriado;
 	}
 
 	public void setSeriado(Seriado seriado) {
 		this.seriado = seriado;
+	}
+
+	public int getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(int temporada) {
+		this.temporada = temporada;
 	}
 
 	

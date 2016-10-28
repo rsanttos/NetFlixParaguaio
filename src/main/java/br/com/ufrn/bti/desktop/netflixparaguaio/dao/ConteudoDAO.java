@@ -32,4 +32,17 @@ public class ConteudoDAO extends GenericDAO {
 		session.close();
 		return conteudo;
 	}
+	
+	public List<Conteudo> buscarPorNomeEAtor(String nome, String atorPrincipal){
+		List<Conteudo> listaConteudos = new ArrayList<Conteudo>();
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query q =session.createQuery("SELECT c FROM Conteudo c WHERE lower(c.nome) LIKE :nome OR lower(c.atorPrincipal) LIKE :atorPrincipal");
+        q.setString("nome", "%" + nome.toLowerCase() + "%");
+        q.setString("atorPrincipal", "%" + atorPrincipal.toLowerCase() + "%");
+		listaConteudos = q.getResultList();
+		session.clear();
+		session.close();
+		return listaConteudos;
+	}
 }

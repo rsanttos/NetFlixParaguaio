@@ -7,14 +7,14 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ufrn.bti.desktop.netflixparaguaio.view.FilmeController">
    <children>
-      <Label layoutX="38.0" layoutY="10.0" text="Listagem de Filmes - Admin">
+      <Label layoutX="38.0" layoutY="10.0" text="Listagem de Filmes">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
       <ScrollPane fx:id="spFilmes" layoutX="31.0" layoutY="48.0" prefHeight="210.0" prefWidth="608.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0" />
       <ScrollPane fx:id="spSeries" layoutX="29.0" layoutY="403.0" prefHeight="267.0" prefWidth="790.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="403.0" />
-      <Label layoutX="34.0" layoutY="368.0" text="Listagem de Seriados - Admin" AnchorPane.bottomAnchor="302.0">
+      <Label layoutX="34.0" layoutY="368.0" text="Listagem de Seriados" AnchorPane.bottomAnchor="302.0">
          <font>
             <Font size="25.0" />
          </font>

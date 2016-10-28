@@ -8,9 +8,9 @@ import br.com.ufrn.bti.desktop.netflixparaguaio.service.UsuarioService;
 import br.com.ufrn.bti.desktop.netflixparaguaio.util.Alerta;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class LoginController extends GenericController {
@@ -18,8 +18,7 @@ public class LoginController extends GenericController {
 	@FXML
 	private TextField loginField;
 	@FXML
-	private TextField senhaField;
-	private BorderPane rootLayout;
+	private PasswordField senhaField;
 
 	private Stage stage;
 	private boolean entrarClicked = false;
@@ -62,11 +61,11 @@ public class LoginController extends GenericController {
 		this.loginField = loginField;
 	}
 
-	public TextField getSenhaField() {
+	public PasswordField getSenhaField() {
 		return senhaField;
 	}
 
-	public void setSenhaField(TextField senhaField) {
+	public void setSenhaField(PasswordField senhaField) {
 		this.senhaField = senhaField;
 	}
 
@@ -96,10 +95,12 @@ public class LoginController extends GenericController {
 				if (senhaField.getText().equals(usuario.getSenha())) {
 					if (usuario.getPermissao().equals("ADMIN")) {
 						this.stage.close();
-						boolean entrarClicked = main.showListagemFilmesAdmin();
+						setUsuarioLogado(usuario);
+						boolean entrarClicked = main.showListagemFilmesAdmin(usuario);
 					} else if (usuario.getPermissao().equals("USER")) {
 						this.stage.close();
-						boolean entrarClicked = main.showListagemFilmesUser();
+						setUsuarioLogado(usuario);
+						boolean entrarClicked = main.showListagemFilmesUser(usuario);
 					}
 				} else {
 					Alerta.alertaErro("Vixe.", "Verifique se digitou a senha corretamente.");
